@@ -63,6 +63,10 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
 
+.requied_field{
+  color: red;
+}
+
 hr {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;

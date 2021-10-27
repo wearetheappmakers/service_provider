@@ -84,7 +84,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-4">
+                                <!-- <div class="col-lg-4">
                                     <label>Membership Amount</label>
                                      <input type="text" class="form-control" placeholder="Enter Membership Amount" onkeypress="return isNumber(event)" name="amount" id="amount" required autocomplete="off">
                                 </div>
@@ -97,7 +97,7 @@
                                         <option value="Card">Card</option>
                                         <option value="UPI">UPI</option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-4">
                                     <label>Status:</label>

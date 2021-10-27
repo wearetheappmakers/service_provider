@@ -81,7 +81,7 @@
                                         <option value="cocktail" @if($edit->favourite == 'cocktail') selected @endif>Cocktail</option>
                                     </select>
                                 </div>
-
+<!-- 
                                 <div class="col-lg-4">
                                     <label>Membership Amount</label>
                                      <input type="text" class="form-control" placeholder="Enter Membership Amount" onkeypress="return isNumber(event)" name="amount" id="amount" disabled="" autocomplete="off" value="{{ $membership->amount }}">
@@ -95,7 +95,7 @@
                                         <option value="Card" @if($membership->payment_type == 'Card') selected @endif>Card</option>
                                         <option value="UPI" @if($membership->payment_type == 'UPI') selected @endif>UPI</option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-4">
                                     <label>Status:</label>

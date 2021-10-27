@@ -65,24 +65,6 @@
 
 @if(isset($is_orderby) && $is_orderby == 'yes')
 
-@if(Auth::guard('vendor')->check())
-    @php
-        $user = 'vendor';
-        $url = route('vendor.product'); 
-        $price_update = route('vendor.product.product_price_update'); 
-        $product_priceselling_update = route('vendor.product.product_priceselling_update'); 
-        $inventory_update = route('vendor.product.inventory_update'); 
-    @endphp
-@else
-    @php 
-        $user = 'admin'; 
-        $url = route('admin.product.index'); 
-        $price_update = route('admin.product.product_price_update'); 
-        $product_priceselling_update = route('admin.product.product_priceselling_update'); 
-        $inventory_update = route('admin.product.inventory_update'); 
-    @endphp
-@endif
-
 <!-- <link rel="stylesheet" href="/assets/js/jquery-ui/jquery-ui-1.10.3.custom.min.css" /> -->
 
 <!-- <script type="text/javascript" src="{{ asset('assets/plugins/custom/jquery-ui/jquery-ui.bundle.css') }}"></script> -->
@@ -265,18 +247,6 @@
 
     });
 
-    function DiscountMultiple(ids) {
-        newurl = '&id=' + ids;
-        $.ajax({
-            type: 'GET',
-            url: "{{route('admin.product.get_discount_popup')}}",
-            data: newurl,
-            dataType: 'json',
-
-            
-        });
-    }
-
     function DeleteMultiple(ids) {
 
         var table = $('#table_name').val();
@@ -405,60 +375,12 @@
         $($this).closest('.priceclass').find('.priceclassvalue').prop('disabled',false);
     }
 
-    function saveprice($this,priceid,pid){
-        $.ajax({
-                type: "POST",
-                url: "{{ $price_update }}",
-                 
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'id':priceid,
-                    'price':$($this).closest('.priceclass').find('.priceclassvalue').val(),
-                    'product_id' : pid
-                },
-                success: function(data) {
-                    if (data.status === 'success') {
-                        toastr["success"]("Price Update Successfully", "Success");
-                    } else if (data.status === 'error') {
-                        toastr["error"]("Something went wrong", "Error");
-                    }
-                }
-            });
-        $($this).closest('.priceclass').find('.priceclasssavebtn').prop('disabled',true);
-        $($this).closest('.priceclass').find('.priceclasseditbtn').prop('disabled',false);
-        $($this).closest('.priceclass').find('.priceclassvalue').prop('disabled',true);
-    }
-
     function editsellingprice($this,priceid){
         $($this).closest('.spriceclass').find('.spriceclasssavebtn').prop('disabled',false);
         $($this).closest('.spriceclass').find('.spriceclasseditbtn').prop('disabled',true);
         $($this).closest('.spriceclass').find('.spriceclassvalue').prop('disabled',false);
     }
-
-    function savesellingprice($this,priceid,pid){
-        $.ajax({
-                type: "POST",
-                url: "{{ $product_priceselling_update }}",
-                 
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    'id':priceid,
-                    'wholesale_price':$($this).closest('.spriceclass').find('.spriceclassvalue').val(),
-                    'product_id' : pid
-                },
-                success: function(data) {
-                    if (data.status === 'success') {
-                        toastr["success"]("Price Update Successfully", "Success");
-                    } else if (data.status === 'error') {
-                        toastr["error"]("Something went wrong", "Error");
-                    }
-                }
-            });
-        $($this).closest('.spriceclass').find('.spriceclasssavebtn').prop('disabled',true);
-        $($this).closest('.spriceclass').find('.spriceclasseditbtn').prop('disabled',false);
-        $($this).closest('.spriceclass').find('.spriceclassvalue').prop('disabled',true);
-
-    }
+    
 </script>
 
 @endif

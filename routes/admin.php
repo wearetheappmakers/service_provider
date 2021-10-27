@@ -14,9 +14,13 @@ Route::resource('option-value','AdminSeller\OptionValueController');
 Route::resource('currency','AdminSeller\CurrencyController');
 Route::resource('discount','AdminSeller\DiscountController');
 Route::resource('category','AdminSeller\CategoryController');
+Route::resource('commision','AdminSeller\CommisionController');
+Route::resource('bookingstatus','AdminSeller\BookingStatusController');
+Route::resource('service','AdminSeller\ServiceController');
 Route::resource('image_optimize','AdminSeller\ImageOptimizeController');
 
 Route::post('category-destory','AdminSeller\CategoryController@destory')->name('category.destory');
+Route::any('import-category', 'AdminSeller\CategoryController@importCategory')->name('category.import');
 
 Route::name('home.')->group(function () {
     Route::get('/change-multiple-status', 'AdminSeller\HomeController@changeMultipleStatus')->name('change-multiple-status');

@@ -179,6 +179,14 @@ License: You must have a valid license purchased only from themeforest(the above
 							@if(Auth::guard('admin')->check())
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.vendors.index','all')}}" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-users"></i><span class="kt-menu__link-text">Customer</span></a></li>
+
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.category.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-layer-group"></i><span class="kt-menu__link-text">Category</span></a></li>
+
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookingstatus.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
+
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.commision.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-money-bill-wave"></i><span class="kt-menu__link-text">Commision</span></a></li>
+
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.service.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Service</span></a></li>
 												
 							@endif
 						</ul>

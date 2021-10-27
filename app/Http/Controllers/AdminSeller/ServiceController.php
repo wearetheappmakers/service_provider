@@ -2,53 +2,41 @@
 
 namespace App\Http\Controllers\AdminSeller;;
 
+use App\Models\Service;
 use App\Models\Category;
-use App\Imports\CategoryImport;
+use App\Models\Commision;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveCategoryRequest;
 use App\Helpers\ImageHelper;
 use DataTables;
 use Auth;
-use Excel;
 
-class CategoryController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response 
      */
-     protected $categoryRepository;
-    public function __construct(Category $model)
+    public function __construct(Service $model)
     {
-        $this->view = 'category';
-        $this->route = 'category';
-        $this->viewName = 'Category';
+        $this->view = 'service';
+        $this->route = 'service';
+        $this->viewName = 'Services';
         $this->model =  $model;
     }
     
     public function index(Request $request)
     {
-       
          
         if ($request->ajax()) {
-            $category_level = $this->model->treeList();
-            $order = implode(',', array_keys($category_level));
-            $query = Category::where('deleted_at', NULL);
-            if($order != ''){
-                $query->orderByRaw("FIELD(id, ".$order.")");
-                }
-			$query->get();
-			
+            
+            $query = $this->model->latest();
 			
 			return Datatables::of($query)
 				->addColumn('action', function ($row) {
-					$btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destory') ])->render();
+					$btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
 					return $btn;
-				})
-			    ->addColumn('name', function ($row) use($category_level){
-					return html_entity_decode($category_level[$row->id]);
 				})
 				->addColumn('checkbox', function ($row) {
 					$chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
@@ -87,12 +75,13 @@ class CategoryController extends Controller
         $data['module'] = $this->viewName;
         $data['resourcePath'] = $this->view;
         $data['categories_select'] = $this->getCategory();
+        $data['commisions'] = Commision::where('status',1)->get();
 
         return view('admin.general.add_form')->with($data);
     }
-    
+
     public function getCategory() {
-         $category_level = $this->model->treeList();
+         $category_level = Category::treeList();
          return  $category_level ;
     }
 
@@ -102,22 +91,19 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaveCategoryRequest $request)
+    public function store(Request $request)
     {
         $param = $request->all();
         $param['status']=empty($request->status)? 0 : $request->status;
 
-        if ($request->hasFile('banner_image')) {
-            $name = ImageHelper::saveUploadedImage(request()->banner_image, 'Banner', storage_path("app/public/uploads/category/"));
-            $param['banner_image'] = $name;
+        if ($request->hasFile('icon')) {
+            $name = ImageHelper::saveUploadedImage(request()->icon, 'Product', storage_path("app/public/uploads/service/"));
+            $param['icon'] = $name;
         }
     
-        $category = Category::create($param);
-        $category->position = $category->id;
-        $category->order = $category->id;
-        $category->save();
+        $service = $this->model->create($param);
 
-        if ($category){
+        if ($service){
 			return response()->json(['status'=>'success']);
 		}else{
 			return response()->json(['status'=>'error']);
@@ -145,11 +131,12 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $data['title'] = 'Edit '.$this->viewName;
-        $data['edit'] = Category::findOrFail($id);
+        $data['edit'] = $this->model->findOrFail($id);
         $data['url'] = route('admin.' . $this->route . '.update', [$this->view => $id]);
         $data['module'] = $this->viewName;
         $data['resourcePath'] = $this->view;
         $data['categories_select'] = $this->getCategory();
+        $data['commisions'] = Commision::where('status',1)->get();
         
 		return view('admin.general.edit_form', compact('data'));//->with($data);
     }
@@ -161,28 +148,23 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveCategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $param = $request->all();
         $param['status']=empty($request->status)? 0 : $request->status;
         unset($param['_token'], $param['_method']);
+        
+        $commision = $this->model->where('id', $id)->first();
 
-        if($param['parent_id'] == '') {
-            $param['parent_id'] = NULL;
+        if ($request->hasFile('icon')) {
+            $name = ImageHelper::saveUploadedImage(request()->icon, 'Product', storage_path("app/public/uploads/service/"));
+            $param['icon'] = $name;
         }
-        
-        $category = Category::where('id', $id)->first();
-        $category->slug = null;
 
-            if ($request->hasFile('banner_image')) {
-                $name = ImageHelper::saveUploadedImage(request()->banner_image, 'Banner', storage_path("app/public/uploads/category/"), $category->banner_image);
-                $param['banner_image'] = $name;
-            }
-        
-        
-        $category->update($param);
+        $commision->slug = null;
+        $commision->update($param);
           
-        if ($category){
+        if ($commision){
 			return response()->json(['status'=>'success']);
 		}else{
 			return response()->json(['status'=>'error']);
@@ -196,15 +178,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destory(Request $request)
+    public function destroy($id)
     {
-        $pid = Category::where('id',$request->id)->value('parent_id');
-
-        if (!empty($pid)) {
-           $result = Category::where('id',$request->id)->delete();
-        }else{
-           $result = Category::where('parent_id',$request->id)->orWhere('id',$request->id)->delete();
-        }
+        $result = $this->model->where('id',$id)->delete();
 
         if ($result){
             return response()->json(['success'=> true]);
@@ -212,20 +188,6 @@ class CategoryController extends Controller
             return response()->json(['success'=> false]);
         }
         
-    }
-    
-    public function treeView(Request $request) {
-        
-        $category_tree = $this->model->tree();
-       
-        return view('adminseller.category.tree_view', compact('category_tree'));
-    }
-
-    public function importCategory(Request $request) {
-        if($request->ajax() && $request->isMethod('post')){ 
-            Excel::import(new CategoryImport, $request->file('category_excel'));
-            return response()->json(['status'=>'success']);
-        } 
     }
 
      public function change_status(Request $request)
