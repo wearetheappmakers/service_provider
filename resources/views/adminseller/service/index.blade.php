@@ -70,7 +70,13 @@
 
 								<th>Name</th>
 
-								<!-- <th>Seller ID</th> -->
+								<th>Icon</th>
+
+								<th>Category</th>
+
+								<th>Price</th>
+
+								<th>Duration</th>
 
 								<th>Status</th>
 
@@ -156,12 +162,23 @@
 					"data": "name"
 
 				},
+				{
 
-				// {
+					"data": "icon"
 
-				// 	"data": "seller_id"
+				},{
 
-				// },
+					"data": "category_id"
+
+				},{
+
+					"data": "price"
+
+				},{
+
+					"data": "duration"
+
+				},
 				{
 
 					orderable: false,

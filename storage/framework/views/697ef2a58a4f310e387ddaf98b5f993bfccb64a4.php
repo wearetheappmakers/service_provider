@@ -31,46 +31,19 @@
                     <form class="kt-form kt-form--label-right add_form" method="post" action="<?php echo e($url); ?>">
 
                         <?php echo csrf_field(); ?>
-                        <div class="kt-portlet__body">
-                            <div class="form-group row">
-                                <div class="col-lg-4">
-                                    <label>Name:<span class="requied_field">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter name" name="name" id="name" required autocomplete="off">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Contact No:<span class="requied_field">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter contact no" onkeypress="return isNumber(event)" maxlength="10" name="number" id="number" required autocomplete="off">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Gender:</label>
-                                     <select class="form-control" name="gender">
-                                        <option value="1">Male</option>
-                                        <option value="2">Female</option>
-                                        <option value="3">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-4">
-                                    <label>Birth Date:<span class="requied_field">*</span></label>
-                                    <input type="date" class="form-control" placeholder="Enter Birth Date" name="b_date" id="b_date" required autocomplete="off">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Password:<span class="requied_field">*</span></label>
-                                    <input type="password" class="form-control" placeholder="Enter password" name="spassword" id="spassword" value="12345678" required="" autocomplete="off">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Status:</label>
-                                    <select class="form-control" name="status">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                
-                            </div>
-                        </div>
+                        <?php
+                            
+                        if(isset($type)){
+                            $index= route('admin.'.$resourcePath.'.index',array('type'=>$type));
+                            $store=route('admin.'.$resourcePath.'.store',array('type'=>$type));
+                        }else {
+                            $index= route('admin.'.$resourcePath.'.index');
+                            $store=route('admin.'.$resourcePath.'.store');
+                        }
+                        // echo $index;
+                        // exit;
+                        ?>
+                        <?php echo $__env->make('adminseller.'.$resourcePath.'.create', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
                         <div class="kt-portlet__foot">
 
@@ -106,24 +79,26 @@
 
 </div>
 
+
+
 <script>
 
     $(document).ready(function() {
 
         $(".submit").on("click", function(e) {
-            
+          	
             e.preventDefault();
 
             if ($(".add_form").valid()) {
-                
-                $('.change_button').find('.change_spin').removeClass('d-none');
-                $('.change_button').prop('disabled', true);
+            	
+            	$('.change_button').find('.change_spin').removeClass('d-none');
+            	$('.change_button').prop('disabled', true);
 
                 $.ajax({
 
                     type: "POST",
 
-                    url: "<?php echo e(route('admin.vendors.store')); ?>",
+                    url: "<?php echo e($store); ?>",
 
                     data: new FormData($('.add_form')[0]),
 
@@ -134,7 +109,7 @@
                     success: function(data) {
 
                         if (data.status === 'success') {
-                            
+                        	console.log('done');
                             window.location = "<?php echo e($index); ?>";
 
                             toastr["success"]("<?php echo e($module); ?> Added Successfully", "Success");
@@ -166,8 +141,8 @@
                 });
 
             } else {
-                $('.change_button').prop('disabled', false);
-                $('.change_button').find('.change_spin').addClass('d-none');
+            	$('.change_button').prop('disabled', false);
+            	$('.change_button').find('.change_spin').addClass('d-none');
                 e.preventDefault();
 
             }
@@ -187,8 +162,5 @@
 
 </script>
 
-
-
 <?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/adminseller/vendors/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/admin/general/add_form.blade.php ENDPATH**/ ?>

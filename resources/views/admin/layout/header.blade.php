@@ -186,6 +186,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.vendors.index','all')}}" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-users"></i><span class="kt-menu__link-text">Customer</span></a></li>
 
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.provider.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-user"></i><span class="kt-menu__link-text">Provider</span></a></li>
+
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.service.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Service</span></a></li>
 												
 							@endif

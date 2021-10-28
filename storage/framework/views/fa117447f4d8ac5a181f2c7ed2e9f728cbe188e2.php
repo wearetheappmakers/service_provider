@@ -70,13 +70,7 @@
 
 								<th>Name</th>
 
-								<th>Icon</th>
-
-								<th>Category</th>
-
-								<th>Price</th>
-
-								<th>Duration</th>
+								<th>Contact No</th>
 
 								<th>Status</th>
 
@@ -105,11 +99,11 @@
 
 <?php echo $__env->make('admin.layout.multiple_action', array(
 
-					'table_name' => 'services',
+					'table_name' => 'provider',
 
 					'is_orderby'=>'yes',
 
-					'folder_name'=>'service',
+					'folder_name'=>'provider',
 
 					'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
@@ -162,21 +156,10 @@
 					"data": "name"
 
 				},
+
 				{
 
-					"data": "icon"
-
-				},{
-
-					"data": "category_id"
-
-				},{
-
-					"data": "price"
-
-				},{
-
-					"data": "duration"
+					"data": "number"
 
 				},
 				{
@@ -216,4 +199,4 @@
 
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/adminseller/service/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/adminseller/provider/index.blade.php ENDPATH**/ ?>

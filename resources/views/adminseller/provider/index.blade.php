@@ -1,6 +1,8 @@
-<?php $__env->startSection('content'); ?>
+@extends('admin.main')
 
-<link href="<?php echo e(asset('assets/plugins/custom/datatables/datatables.bundle.css')); ?>" rel="stylesheet" type="text/css" />
+@section('content')
+
+<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 
 
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -23,8 +25,7 @@
 
 					<h3 class="kt-portlet__head-title">
 
-						<?php echo e($module); ?>
-
+						{{ $module }}
 
 					</h3>
 
@@ -37,12 +38,11 @@
 						<div class="kt-portlet__head-actions">
 
 						
-							<a href="<?php echo e(route('admin.'.$resourcePath.'.create')); ?>" class="btn btn-brand btn-elevate btn-icon-sm">
+							<a href="{{ route('admin.'.$resourcePath.'.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
 
 								<i class="la la-plus"></i>
 
-								Add <?php echo e($module); ?>
-
+								Add {{ $module}}
 
 							</a>
 						
@@ -60,7 +60,7 @@
 
 					<table class="table table-striped- table-bordered table-hover table-checkable datatable" id="datatable_rows">
 
-						<?php echo csrf_field(); ?>
+						@csrf
 
 						<thead>
 
@@ -70,13 +70,7 @@
 
 								<th>Name</th>
 
-								<th>Icon</th>
-
-								<th>Category</th>
-
-								<th>Price</th>
-
-								<th>Duration</th>
+								<th>Contact No</th>
 
 								<th>Status</th>
 
@@ -103,25 +97,25 @@
 
 </div>
 
-<?php echo $__env->make('admin.layout.multiple_action', array(
+@include('admin.layout.multiple_action', array(
 
-					'table_name' => 'services',
+					'table_name' => 'provider',
 
 					'is_orderby'=>'yes',
 
-					'folder_name'=>'service',
+					'folder_name'=>'provider',
 
 					'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
-					), \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					))
 
-<?php $__env->stopSection(); ?>
+@stop
 
-<?php $__env->startPush('scripts'); ?>
+@push('scripts')
 
 
 
-<script src="<?php echo e(asset('assets/plugins/custom/datatables/datatables.bundle.js')); ?>" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
 
 
 
@@ -145,7 +139,7 @@
 
 			}],
 
-			ajax: "<?php echo e(route('admin.'.$resourcePath.'.index')); ?>",
+			ajax: "{{ route('admin.'.$resourcePath.'.index') }}",
 
 			columns: [{
 
@@ -162,21 +156,10 @@
 					"data": "name"
 
 				},
+
 				{
 
-					"data": "icon"
-
-				},{
-
-					"data": "category_id"
-
-				},{
-
-					"data": "price"
-
-				},{
-
-					"data": "duration"
+					"data": "number"
 
 				},
 				{
@@ -215,5 +198,4 @@
 
 
 
-<?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/adminseller/service/index.blade.php ENDPATH**/ ?>
+@endpush

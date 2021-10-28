@@ -28,7 +28,7 @@
 
 					<h3 class="kt-portlet__head-title">
 
-						Customer list
+						{{ $module }} list
 
 					</h3>
 
@@ -44,7 +44,7 @@
 
 								<i class="la la-plus"></i>
 
-								Add Customer
+								Add {{ $module }}
 
 							</a>
 

@@ -33,14 +33,19 @@ class AuthController extends Controller
     {
         
         try{
-               $user = $this->user->create([
-                    'fname' => $request->get('name'),
+
+               $reg = $this->user->create([
+                    'name' => $request->get('name'),
                     'email' => $request->get('email'),
                     'number' => $request->get('number'),
+                    'b_date' => $request->get('b_date'),
+                    'gender' => $request->get('gender'),
                     'spassword' => $request->get('password'),
                     'password' => bcrypt($request->get('password')),
                     'status' => 1
-                ]);                
+                ]); 
+                
+
             } catch (\Illuminate\Database\QueryException $e) 
             {
                $errorCode = $e->errorInfo[1];
@@ -54,18 +59,12 @@ class AuthController extends Controller
         //     $message->to($data['email']);
         //     $message->subject('Welcome to AB Mart');
         // });
-        if($user){
+        if($reg){
             \Config::set('jwt.user', "App\User");
             \Config::set('auth.providers.users.model', \App\User::class);
 
-            $credentials = $request->only('email', 'password');
+            $credentials = $request->only('number', 'password');
 
-            if ($user->role == 1) {
-                $role = 'vendor';
-            }else{
-                $role = 'user';
-            }
-            
             try 
             {
                 if (!$token = JWTAuth::attempt($credentials)) 
@@ -76,11 +75,10 @@ class AuthController extends Controller
             {
                 return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
             } 
-            return response()->json(['success' => 1, 'token' => $token, 'user_role' => $role]);
+            return response()->json(['success' => 1, 'token' => $token, 'users' => $reg]);
         }else{
             return response()->json(['success' => 0, 'message' => 'email already exists'], 200);
         }
-        // return response()->json(['success' => true, 'message' => 'User created successfully']);
     }
 
     public function login(Request $request)
@@ -112,15 +110,9 @@ class AuthController extends Controller
             
         } catch (JWTAuthException $e) {
             return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
-        } 
-
-        if (JWTAuth::user()->role == 1) {
-            $role = 'vendor';
-        }else{
-            $role = 'user';
         }
 
-        return response()->json(['success' => 1, 'token' => $token, 'id' => JWTAuth::user()->id, 'user_role' => $role ]);
+        return response()->json(['success' => 1, 'user_detail' => JWTAuth::user(), 'token' => $token ]);
     }
 
     public function changepassword(Request $request){
@@ -180,8 +172,18 @@ class AuthController extends Controller
            return response()->json(['status' => 1, 'message' => 'User details fetched successfully updated.', 'data' => $user ], 200); 
         }else{
           return response()->json(['status' => 0, 'message' => 'No data found!', 'data' => '' ], 200);  
+        }  
+    }
+
+    public function updateProfileDetail(Request $request){
+        $param = $request->all();
+        $user = User::where('id',JWTAuth::user()->id)->update($param);
+
+        if ($user) {
+           return response()->json(['status' => 1, 'message' => 'User details Updated successfully updated.', 'data' =>  User::findOrfail(JWTAuth::user()->id) ], 200); 
+        }else{
+          return response()->json(['status' => 0, 'message' => 'No data found!', 'data' => '' ], 200);  
         }
-        
     }
    
 }

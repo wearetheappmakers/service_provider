@@ -26,7 +26,7 @@
 
 					<h3 class="kt-portlet__head-title">
 
-						Customer list
+						<?php echo e($module); ?> list
 
 					</h3>
 
@@ -42,7 +42,8 @@
 
 								<i class="la la-plus"></i>
 
-								Add Customer
+								Add <?php echo e($module); ?>
+
 
 							</a>
 

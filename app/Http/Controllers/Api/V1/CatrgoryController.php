@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Category;
-use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\CustomeHelper;
@@ -17,6 +17,11 @@ class CatrgoryController extends Controller
     {
         $data = Category::newtree();
         return response()->json(['success' => 1, 'records' => $data], 200);
+    }
+
+    public function getServiceByCategory($id){
+    	$data = Service::where('category_id',$id)->get();
+    	return response()->json(['success' => 1, 'records' => $data], 200);
     }
     
 }

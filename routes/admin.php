@@ -17,6 +17,7 @@ Route::resource('category','AdminSeller\CategoryController');
 Route::resource('commision','AdminSeller\CommisionController');
 Route::resource('bookingstatus','AdminSeller\BookingStatusController');
 Route::resource('service','AdminSeller\ServiceController');
+Route::resource('provider','AdminSeller\ProviderController');
 Route::resource('image_optimize','AdminSeller\ImageOptimizeController');
 
 // Route::post('category-destory','AdminSeller\CategoryController@destory')->name('category.destory');

@@ -24,12 +24,15 @@ $api->version('v1', function ($api) {
 
         
         $api->get('get-category', 'CatrgoryController@index');
+        $api->get('get-service-by-category/{id}', 'CatrgoryController@getServiceByCategory');
+        $api->get('get-service', 'ServiceController@getService');
         $api->post('contact-us', 'HomeController@get');
 
         $api->group(['middleware' => 'jwt.verify'], function ($api_child) {
 
             $api_child->get('get-home', 'HomeController@index');
-            
+            $api_child->post('update-profile-detail', 'AuthController@updateProfileDetail');
+
             $api_child->post('change-password', 'AuthController@changepassword');
             $api_child->post('update-user-details', 'AuthController@update_user');
             $api_child->get('get-user-details', 'AuthController@getUser');

@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers\AdminSeller;;
 
-use App\Models\Service;
+use App\Models\Provider;
 use App\Models\Category;
-use App\Models\Commision;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Helpers\ImageHelper;
 use DataTables;
 use Auth;
 
-class ServiceController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response 
      */
-    public function __construct(Service $model)
+    public function __construct(Provider $model)
     {
-        $this->view = 'service';
-        $this->route = 'service';
-        $this->viewName = 'Services';
+        $this->view = 'provider';
+        $this->route = 'provider';
+        $this->viewName = 'Provider';
         $this->model =  $model;
     }
     
@@ -42,24 +40,17 @@ class ServiceController extends Controller
 					$chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
 					return $chk;
 				})
-                ->addColumn('icon', function ($row) {
-                    return view('admin.layout.image')->with(['image'=>$row->icon,'folder_name'=>'service']);
-                })
-				->addColumn('category_id', function ($row) {
-					$category_id = Category::where('id',$row->category_id)->value('name');
-					return $category_id;
+				->addColumn('singlecheckbox', function ($row) {
+					$schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
+					return $schk;
 				})
-                ->addColumn('singlecheckbox', function ($row) {
-                    $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
-                    return $schk;
-                })
 				->setRowClass(function () {
 					return 'row-move';
 				})
 				->setRowId(function ($row) {
 					return 'row-' . $row->id;
 				})
-				->rawColumns(['checkbox','icon','category_id','singlecheckbox','action'])
+				->rawColumns(['checkbox', 'singlecheckbox','action'])
 				->make(true);
 		}
 		
@@ -82,7 +73,6 @@ class ServiceController extends Controller
         $data['module'] = $this->viewName;
         $data['resourcePath'] = $this->view;
         $data['categories_select'] = $this->getCategory();
-        $data['commisions'] = Commision::where('status',1)->get();
 
         return view('admin.general.add_form')->with($data);
     }
@@ -101,16 +91,13 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $param = $request->all();
+        $param['password'] = isset($param['spassword']) ? bcrypt($param['spassword']) : bcrypt(12345678);
         $param['status']=empty($request->status)? 0 : $request->status;
-
-        if ($request->hasFile('icon')) {
-            $name = ImageHelper::saveUploadedImage(request()->icon, 'Product', storage_path("app/public/uploads/service/"));
-            $param['icon'] = $name;
-        }
+        $param['category_id'] = serialize($param['category_id']);
     
-        $service = $this->model->create($param);
+        $commision = $this->model->create($param);
 
-        if ($service){
+        if ($commision){
 			return response()->json(['status'=>'success']);
 		}else{
 			return response()->json(['status'=>'error']);
@@ -139,11 +126,13 @@ class ServiceController extends Controller
     {
         $data['title'] = 'Edit '.$this->viewName;
         $data['edit'] = $this->model->findOrFail($id);
+        if (!empty($data['edit'])) {
+            $data['edit']->category_id = unserialize($data['edit']->category_id);
+        }
         $data['url'] = route('admin.' . $this->route . '.update', [$this->view => $id]);
         $data['module'] = $this->viewName;
         $data['resourcePath'] = $this->view;
         $data['categories_select'] = $this->getCategory();
-        $data['commisions'] = Commision::where('status',1)->get();
         
 		return view('admin.general.edit_form', compact('data'));//->with($data);
     }
@@ -158,16 +147,11 @@ class ServiceController extends Controller
     public function update(Request $request, $id)
     {
         $param = $request->all();
+        unset($param['_token'], $param['_method'], $param['id']);
         $param['status']=empty($request->status)? 0 : $request->status;
-        unset($param['_token'], $param['_method']);
+        $param['password'] = isset($param['spassword']) ? bcrypt($param['spassword']) : bcrypt(12345678);
         
         $commision = $this->model->where('id', $id)->first();
-
-        if ($request->hasFile('icon')) {
-            $name = ImageHelper::saveUploadedImage(request()->icon, 'Product', storage_path("app/public/uploads/service/"));
-            $param['icon'] = $name;
-        }
-
         $commision->slug = null;
         $commision->update($param);
           

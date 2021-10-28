@@ -1,6 +1,4 @@
-@extends('admin.main')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -21,7 +19,8 @@
 
                             <h3 class="kt-portlet__head-title">
 
-                                 {{ $title }}
+                                 <?php echo e($title); ?>
+
 
                             </h3>
 
@@ -29,44 +28,49 @@
 
                     </div>
 
-                    <form class="kt-form kt-form--label-right add_form" method="post" action="{{$url}}">
-
-                        @csrf
+                    <form class="kt-form kt-form--label-right add_form" method="post" action="<?php echo e($url); ?>">
+                        <?php echo csrf_field(); ?>
+                        <input type="hidden" name="id" value="<?php echo e($edit->id); ?>">
                         <div class="kt-portlet__body">
                             <div class="form-group row">
                                 <div class="col-lg-4">
                                     <label>Name:<span class="requied_field">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter name" name="name" id="name" required autocomplete="off">
+                                    <input type="text" class="form-control" placeholder="Enter name" name="name" value="<?php echo e($edit->name); ?>" id="fname" required autocomplete="off">
                                 </div>
                                 <div class="col-lg-4">
                                     <label>Contact No:<span class="requied_field">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter contact no" onkeypress="return isNumber(event)" maxlength="10" name="number" id="number" required autocomplete="off">
+                                    <input type="text" class="form-control" placeholder="Enter contact no" onkeypress="return isNumber(event)" maxlength="10" name="number" id="number" value="<?php echo e($edit->number); ?>" required autocomplete="off">
                                 </div>
                                 <div class="col-lg-4">
                                     <label>Gender:</label>
                                      <select class="form-control" name="gender">
-                                        <option value="1">Male</option>
-                                        <option value="2">Female</option>
-                                        <option value="3">Other</option>
+                                        <option value="1" <?php if($edit->gender == 1): ?> selected <?php endif; ?>>Male</option>
+                                        <option value="2" <?php if($edit->gender == 2): ?> selected <?php endif; ?>>Female</option>
+                                        <option value="3" <?php if($edit->gender == 3): ?> selected <?php endif; ?>>Other</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
+                                 
                                 <div class="col-lg-4">
                                     <label>Birth Date:<span class="requied_field">*</span></label>
-                                    <input type="date" class="form-control" placeholder="Enter Birth Date" name="b_date" id="b_date" required autocomplete="off">
+                                    <input type="date" class="form-control" placeholder="Enter Birth Date" name="b_date" value="<?php echo e($edit->b_date); ?>"  id="b_date" required autocomplete="off">
                                 </div>
+                                
                                 <div class="col-lg-4">
+
                                     <label>Password:<span class="requied_field">*</span></label>
-                                    <input type="password" class="form-control" placeholder="Enter password" name="spassword" id="spassword" value="12345678" required="" autocomplete="off">
+                                    <input type="password" class="form-control" placeholder="Enter password" value="<?php echo e($edit->spassword); ?>" name="spassword" id="spassword" required autocomplete="off">
                                 </div>
+
                                 <div class="col-lg-4">
                                     <label>Status:</label>
                                     <select class="form-control" name="status">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option value="1" <?php if($edit->status == 1): ?> selected <?php endif; ?>>Active</option>
+                                        <option value="0" <?php if($edit->status == 0): ?> selected <?php endif; ?>>Inactive</option>
                                     </select>
                                 </div>
+                               
                             </div>
                             <div class="form-group row">
                                 
@@ -83,9 +87,9 @@
 
                                     <div class="col-lg-8">
 
-                                        <button type="button" class="btn btn-primary submit change_button">Submit<i class="la la-spinner change_spin d-none"></i></button>
+                                        <button type="button" class="btn btn-primary submit change_button">Update<i class="la la-spinner change_spin d-none"></i></button>
 
-                                        <a href="{{ $index }}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+                                        <a href="<?php echo e($index); ?>"><button type="button" class="btn btn-secondary">Cancel</button></a>
 
                                     </div>
 
@@ -124,7 +128,7 @@
 
                     type: "POST",
 
-                    url: "{{ route('admin.vendors.store')}}",
+                    url: "<?php echo e(route('admin.vendors.update')); ?>",
 
                     data: new FormData($('.add_form')[0]),
 
@@ -136,9 +140,9 @@
 
                         if (data.status === 'success') {
                             
-                            window.location = "{{ $index }}";
+                            window.location = "<?php echo e($index); ?>";
 
-                            toastr["success"]("{{ $module }} Added Successfully", "Success");
+                            toastr["success"]("<?php echo e($module); ?> Updated Successfully", "Success");
 
                             
 
@@ -190,4 +194,6 @@
 
 
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/adminseller/vendors/edit.blade.php ENDPATH**/ ?>
