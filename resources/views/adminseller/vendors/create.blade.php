@@ -35,15 +35,15 @@
                         <div class="kt-portlet__body">
                             <div class="form-group row">
                                 <div class="col-lg-4">
-                                    <label>First Name:</label>
+                                    <label>First Name:<span class="requied_field">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter first name" name="fname" id="fname" required autocomplete="off">
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>Last Name:</label>
+                                    <label>Last Name:<span class="requied_field">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter last name" name="lname" id="lname" required autocomplete="off">
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>Contact No:</label>
+                                    <label>Contact No:<span class="requied_field">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter contact no" onkeypress="return isNumber(event)" maxlength="10" name="number" id="number" required autocomplete="off">
                                 </div>
                             </div>
@@ -58,47 +58,15 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>Birth Date:</label>
+                                    <label>Birth Date:<span class="requied_field">*</span></label>
                                     <input type="date" class="form-control" placeholder="Enter Birth Date" name="b_date" id="b_date" required autocomplete="off">
                                 </div>
                                 <div class="col-lg-4">
-                                    <label>Password:</label>
-                                    <input type="password" class="form-control" placeholder="Enter password" name="spassword" id="spassword" required autocomplete="off">
+                                    <label>Password:<span class="requied_field">*</span></label>
+                                    <input type="password" class="form-control" placeholder="Enter password" name="spassword" id="spassword" value="12345678" required="" autocomplete="off">
                                 </div>
-                                <!-- <div class="col-lg-4">
-                                    <label>Commission(Only 2 digit valid in %):</label>
-                                    <input type="text" class="form-control" placeholder="Enter commission" onkeypress="return isNumber(event)" maxlength="2" name="commission" value="0" id="commission" autocomplete="off">
-                                </div> -->
                             </div>
                             <div class="form-group row">
-                                
-                                <div class="col-lg-4">
-                                    <label>Favourite:</label>
-                                    <select class="form-control" name="favourite" id="favourite">
-                                        <option value="beer">Beer</option>
-                                        <option value="whisky">Whisky</option>
-                                        <option value="wine">Wine</option>
-                                        <option value="vodka">Vodka</option>
-                                        <option value="rum">Rum</option>
-                                        <option value="cocktail">Cocktail</option>
-                                    </select>
-                                </div>
-
-                                <!-- <div class="col-lg-4">
-                                    <label>Membership Amount</label>
-                                     <input type="text" class="form-control" placeholder="Enter Membership Amount" onkeypress="return isNumber(event)" name="amount" id="amount" required autocomplete="off">
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <label>Payment Type</label>
-                                    <select class="form-control" data-live-search="true" name="payment_type" required="">
-                                        <option value="">--select payment type--</option>
-                                        <option value="Cash">Cash</option>
-                                        <option value="Card">Card</option>
-                                        <option value="UPI">UPI</option>
-                                    </select>
-                                </div> -->
-
                                 <div class="col-lg-4">
                                     <label>Status:</label>
                                     <select class="form-control" name="status">
@@ -107,7 +75,6 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="kt-portlet__foot">
