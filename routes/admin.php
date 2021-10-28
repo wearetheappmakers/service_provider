@@ -19,7 +19,7 @@ Route::resource('bookingstatus','AdminSeller\BookingStatusController');
 Route::resource('service','AdminSeller\ServiceController');
 Route::resource('image_optimize','AdminSeller\ImageOptimizeController');
 
-Route::post('category-destory','AdminSeller\CategoryController@destory')->name('category.destory');
+// Route::post('category-destory','AdminSeller\CategoryController@destory')->name('category.destory');
 Route::any('import-category', 'AdminSeller\CategoryController@importCategory')->name('category.import');
 
 Route::name('home.')->group(function () {
@@ -41,7 +41,7 @@ Route::any('/customer/create/form', 'AdminSeller\VendorController@create')->name
 Route::post('/customer/store/form', 'AdminSeller\VendorController@store')->name('vendors.store');
 Route::get('/customer/edit/{id}/edit', 'AdminSeller\VendorController@edit')->name('vendors.edit');
 Route::post('/customer/update/form', 'AdminSeller\VendorController@update')->name('vendors.update');
-Route::post('/customer/destory/record', 'AdminSeller\VendorController@destory')->name('vendors.destory');
+Route::delete('/customer/destory/{id}', 'AdminSeller\VendorController@destroy')->name('vendors.destroy');
 Route::any('/customer/change/status', 'AdminSeller\VendorController@change_status')->name('vendors.change_status');
 
 

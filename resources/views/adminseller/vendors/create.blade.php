@@ -35,20 +35,13 @@
                         <div class="kt-portlet__body">
                             <div class="form-group row">
                                 <div class="col-lg-4">
-                                    <label>First Name:<span class="requied_field">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter first name" name="fname" id="fname" required autocomplete="off">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label>Last Name:<span class="requied_field">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter last name" name="lname" id="lname" required autocomplete="off">
+                                    <label>Name:<span class="requied_field">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Enter name" name="name" id="name" required autocomplete="off">
                                 </div>
                                 <div class="col-lg-4">
                                     <label>Contact No:<span class="requied_field">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter contact no" onkeypress="return isNumber(event)" maxlength="10" name="number" id="number" required autocomplete="off">
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                
                                 <div class="col-lg-4">
                                     <label>Gender:</label>
                                      <select class="form-control" name="gender">
@@ -57,6 +50,10 @@
                                         <option value="3">Other</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                
+                                
                                 <div class="col-lg-4">
                                     <label>Birth Date:<span class="requied_field">*</span></label>
                                     <input type="date" class="form-control" placeholder="Enter Birth Date" name="b_date" id="b_date" required autocomplete="off">
@@ -65,8 +62,6 @@
                                     <label>Password:<span class="requied_field">*</span></label>
                                     <input type="password" class="form-control" placeholder="Enter password" name="spassword" id="spassword" value="12345678" required="" autocomplete="off">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <div class="col-lg-4">
                                     <label>Status:</label>
                                     <select class="form-control" name="status">
@@ -74,6 +69,9 @@
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                
                             </div>
                         </div>
 

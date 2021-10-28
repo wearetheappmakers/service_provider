@@ -67,8 +67,7 @@
 							<tr>
 
 
-								<th>First Name</th>
-								<th>Last Name</th>
+								<th>Name</th>
 								<th>Contact No</th>
 								<th>Is Active</th>
 								<th>Action</th>
@@ -141,12 +140,7 @@
 
 				{
 
-					"data": "fname"
-
-				},
-				{
-
-					"data": "lname"
+					"data": "name"
 
 				},
 				// {

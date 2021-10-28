@@ -34,7 +34,7 @@ class VendorController extends Controller
             }
 			return Datatables::of($query)
 				->addColumn('action', function ($row) {
-					$btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destory') ])->render();
+					$btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
 					return $btn;
 				})
 				->addColumn('singlecheckbox', function ($row) {
@@ -65,18 +65,10 @@ class VendorController extends Controller
     {
         $param = $request->all();
         $param['password'] = isset($param['spassword']) ? bcrypt($param['spassword']) : bcrypt(12345678);
-        unset($param['amount']);
-        unset($param['payment_type']);
 
         $customer = User::create($param);
 
         if ($customer){
-            Membership::create([
-                'customer_id' => $customer->id,
-                'amount' => $request->amount,
-                'payment_type' => $request->payment_type,
-                'validity' => Carbon::now()->addYear(),
-            ]);
 			return response()->json(['status'=>'success']);
 		}else{
 			return response()->json(['status'=>'error']);
@@ -92,7 +84,6 @@ class VendorController extends Controller
         $data['module'] = $this->viewName;
         $data['resourcePath'] = $this->view;
         $data['index'] = route('admin.' . $this->route . '.index','all');
-        $data['membership'] = Membership::where('customer_id',$id)->latest()->first();
 
 		return view('adminseller.vendors.edit')->with($data);
     }
@@ -105,9 +96,9 @@ class VendorController extends Controller
         unset($param['id']);
         $param['password'] = isset($param['spassword']) ? bcrypt($param['spassword']) : bcrypt(12345678);
 
-    	$vendor = User::where('id',$request->id)->update($param);
+    	$customer = User::where('id',$request->id)->update($param);
 
-        if ($vendor){
+        if ($customer){
 			return response()->json(['status'=>'success']);
 		}else{
 			return response()->json(['status'=>'error']);
@@ -155,9 +146,9 @@ class VendorController extends Controller
         //
     }
 
-    public function destory(Request $request)
+    public function destroy($id)
     {
-        $result = User::where('id',$request->id)->delete();
+        $result = User::where('id',$id)->delete();
 
         if ($result){
             return response()->json(['success'=> true]);

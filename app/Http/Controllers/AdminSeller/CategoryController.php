@@ -44,7 +44,7 @@ class CategoryController extends Controller
 			
 			return Datatables::of($query)
 				->addColumn('action', function ($row) {
-					$btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destory') ])->render();
+					$btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
 					return $btn;
 				})
 			    ->addColumn('name', function ($row) use($category_level){
@@ -196,14 +196,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destory(Request $request)
+    public function destroy($id)
     {
-        $pid = Category::where('id',$request->id)->value('parent_id');
+        $pid = Category::where('id',$id)->value('parent_id');
 
         if (!empty($pid)) {
-           $result = Category::where('id',$request->id)->delete();
+           $result = Category::where('id',$id)->delete();
         }else{
-           $result = Category::where('parent_id',$request->id)->orWhere('id',$request->id)->delete();
+           $result = Category::where('parent_id',$id)->orWhere('id',$id)->delete();
         }
 
         if ($result){
