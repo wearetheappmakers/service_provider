@@ -1,1 +1,0 @@
-<input type="checkbox" class="allcheckbox" value="<?php echo e($id); ?>" /><?php /**PATH D:\rohit\service_provider\service_provider\resources\views/admin/layout/checkbox.blade.php ENDPATH**/ ?>

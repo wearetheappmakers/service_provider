@@ -30,6 +30,13 @@ $api->version('v1', function ($api) {
 
         $api->group(['middleware' => 'jwt.verify'], function ($api_child) {
 
+            //Review
+            $api_child->post('createreview','ReviewController@createreview');
+            $api_child->get('viewreview','ReviewController@viewreview');
+            $api_child->post('editreview','ReviewController@editreview');
+            $api_child->post('updatereview','ReviewController@updatereview');
+            $api_child->post('deletereview','ReviewController@deletereview');
+
             $api_child->get('get-home', 'HomeController@index');
             $api_child->post('update-profile-detail', 'AuthController@updateProfileDetail');
 
