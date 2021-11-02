@@ -99,11 +99,11 @@
 
 <?php echo $__env->make('admin.layout.multiple_action', array(
 
-					'table_name' => 'commision',
+					'table_name' => 'bookingstatus',
 
 					'is_orderby'=>'yes',
 
-					'folder_name'=>'commision',
+					'folder_name'=>'bookingstatus',
 
 					'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
@@ -199,4 +199,4 @@
 
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/commision/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/bookingstatus/index.blade.php ENDPATH**/ ?>

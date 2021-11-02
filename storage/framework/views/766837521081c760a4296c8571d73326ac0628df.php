@@ -191,6 +191,8 @@ License: You must have a valid license purchased only from themeforest(the above
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="<?php echo e(route('admin.service.index')); ?>" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Service</span></a></li>
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="<?php echo e(route('admin.review.index')); ?>" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Review</span></a></li>
+
+							<li class="kt-menu__item kt-menu__item--active" aria-haspopup="true"><a href="<?php echo e(route('admin.bookings.index')); ?>" class="kt-menu__link"><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Bookings</span></a></li>
 												
 							<?php endif; ?>
 						</ul>
@@ -241,27 +243,12 @@ License: You must have a valid license purchased only from themeforest(the above
 					</div>
 
 
-
-					<!-- end:: Aside -->
-
-
-
-					<!-- begin:: Title -->
-
 					<h3 class="kt-header__title kt-grid__item">
 						<a href="<?php echo e(route('admin.home')); ?>" style="color: #00c5ff;">
 							<?php echo e(App\Models\GeneralSetting::where('deleted_at',NULL)->value('site_name')); ?>
 
 						</a>
 					</h3>
-
-
-
-					<!-- end:: Title -->
-
-
-
-					<!-- begin: Header Menu -->
 
 					<button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
 
