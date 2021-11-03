@@ -180,9 +180,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookingstatus.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.permissions.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Permissions</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.permissions.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-key"></i><span class="kt-menu__link-text">Permissions</span></a></li>
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.role.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Role</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.role.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-list"></i><span class="kt-menu__link-text">Role</span></a></li>
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.category.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-layer-group"></i><span class="kt-menu__link-text">Category</span></a></li>
 
@@ -194,9 +194,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.service.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Service</span></a></li>
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.review.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Review</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.review.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-star"></i><span class="kt-menu__link-text">Review</span></a></li>
 
-							<li class="kt-menu__item kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookings.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Bookings</span></a></li>
+							<li class="kt-menu__item kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookings.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon fa fa-book"></i><span class="kt-menu__link-text">Bookings</span></a></li>
 
 							@endif
 						</ul>
