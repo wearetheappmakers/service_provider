@@ -2,58 +2,55 @@
 
 namespace App\Http\Controllers\AdminSeller;;
 
-use App\Models\Provider;
-use App\Models\Category;
-use App\Models\Role;
-use App\Models\Section;
+use App\Models\Permissions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DataTables;
 use Auth;
 
-class ProviderController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response 
      */
-    public function __construct(Provider $model)
+    public function __construct(Permissions $model)
     {
-        $this->view = 'provider';
-        $this->route = 'provider';
-        $this->viewName = 'Provider';
+        $this->view = 'permissions';
+        $this->route = 'permissions';
+        $this->viewName = 'Permissions List';
         $this->model =  $model;
     }
     
     public function index(Request $request)
     {
-       
+         
         if ($request->ajax()) {
             
             $query = $this->model->latest();
             
             return Datatables::of($query)
-            ->addColumn('action', function ($row) {
-               $btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
-               return $btn;
-           })
-            ->addColumn('checkbox', function ($row) {
-               $chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
-               return $chk;
-           })
-            ->addColumn('singlecheckbox', function ($row) {
-               $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
-               return $schk;
-           })
-            ->setRowClass(function () {
-               return 'row-move';
-           })
-            ->setRowId(function ($row) {
-               return 'row-' . $row->id;
-           })
-            ->rawColumns(['checkbox', 'singlecheckbox','action'])
-            ->make(true);
+                ->addColumn('action', function ($row) {
+                    $btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
+                    return $btn;
+                })
+                ->addColumn('checkbox', function ($row) {
+                    $chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
+                    return $chk;
+                })
+                ->addColumn('singlecheckbox', function ($row) {
+                    $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
+                    return $schk;
+                })
+                ->setRowClass(function () {
+                    return 'row-move';
+                })
+                ->setRowId(function ($row) {
+                    return 'row-' . $row->id;
+                })
+                ->rawColumns(['checkbox', 'singlecheckbox','action'])
+                ->make(true);
         }
         
         $data['title'] = 'Add ' . $this->viewName;
@@ -73,19 +70,10 @@ class ProviderController extends Controller
         $data['url'] = route('admin.' . $this->route . '.store');
         $data['title'] = 'Add ' . $this->viewName;
         $data['module'] = $this->viewName;
-        $data['sections'] = Section::get();
         $data['resourcePath'] = $this->view;
-        $data['categories_select'] = $this->getCategory();
-        $data['roles_select'] = Role::where('status',1)->get();
-
 
         return view('admin.general.add_form')->with($data);
     }
-
-    public function getCategory() {
-       $category_level = Category::treeList();
-       return  $category_level ;
-   }
 
     /**
      * Store a newly created resource in storage.
@@ -96,21 +84,17 @@ class ProviderController extends Controller
     public function store(Request $request)
     {
         $param = $request->all();
-        $param['role_id'] = serialize($param['role_id']);
-        
-        $param['password'] = isset($param['spassword']) ? bcrypt($param['spassword']) : bcrypt(12345678);
         $param['status']=empty($request->status)? 0 : $request->status;
-        $param['category_id'] = serialize($param['category_id']);
-        
+    
         $commision = $this->model->create($param);
 
         if ($commision){
-         return response()->json(['status'=>'success']);
-     }else{
-         return response()->json(['status'=>'error']);
-     }
-     
- }
+            return response()->json(['status'=>'success']);
+        }else{
+            return response()->json(['status'=>'error']);
+        }
+      
+    }
 
     /**
      * Display the specified resource.
@@ -133,24 +117,11 @@ class ProviderController extends Controller
     {
         $data['title'] = 'Edit '.$this->viewName;
         $data['edit'] = $this->model->findOrFail($id);
-        if (!empty($data['edit'])) {
-            $data['edit']->category_id = unserialize($data['edit']->category_id);
-            $data['edit']->role_id = unserialize($data['edit']->role_id);
-
-        }
-        // $data['edit'] = $this->model->findOrFail($id);
-        // // dd($data);
-        // if (!empty($data['edit'])) {
-            
-        // }
         $data['url'] = route('admin.' . $this->route . '.update', [$this->view => $id]);
         $data['module'] = $this->viewName;
         $data['resourcePath'] = $this->view;
-        $data['categories_select'] = $this->getCategory();
-        $data['roles_select'] = Role::where('status',1)->get();
-
         
-		return view('admin.general.edit_form', compact('data'));//->with($data);
+        return view('admin.general.edit_form', compact('data'));//->with($data);
     }
 
     /**
@@ -163,22 +134,20 @@ class ProviderController extends Controller
     public function update(Request $request, $id)
     {
         $param = $request->all();
-        unset($param['_token'], $param['_method'], $param['id']);
         $param['status']=empty($request->status)? 0 : $request->status;
-        $param['role_id'] = serialize($param['role_id']);
-        $param['password'] = isset($param['spassword']) ? bcrypt($param['spassword']) : bcrypt(12345678);
+        unset($param['_token'], $param['_method']);
         
         $commision = $this->model->where('id', $id)->first();
-        $commision->slug = null;
+       
         $commision->update($param);
-        
+          
         if ($commision){
-         return response()->json(['status'=>'success']);
-     }else{
-         return response()->json(['status'=>'error']);
-     }
-     
- }
+            return response()->json(['status'=>'success']);
+        }else{
+            return response()->json(['status'=>'error']);
+        }
+        
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -198,7 +167,7 @@ class ProviderController extends Controller
         
     }
 
-    public function change_status(Request $request)
+     public function change_status(Request $request)
     {
 
         $table_name = $request->get('table_name');
@@ -209,16 +178,16 @@ class ProviderController extends Controller
             if ($param == 0) {
                 foreach ($id_array as $id) {
                     DB::table($table_name)->where('id', $id)
-                    ->update([
-                        'status' => 1,
-                    ]);
+                        ->update([
+                            'status' => 1,
+                        ]);
                 }
             } elseif ($param == 1) {
                 foreach ($id_array as $id) {
                     DB::table($table_name)->where('id', $id)
-                    ->update([
-                        'status' => 0,
-                    ]);
+                        ->update([
+                            'status' => 0,
+                        ]);
                 }
             }
 
@@ -230,6 +199,6 @@ class ProviderController extends Controller
         }
 
         return response()->json($res);
-        
+    
     }
 }

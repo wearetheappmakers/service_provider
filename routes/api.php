@@ -18,6 +18,8 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\V1', 'prefix' => 'v1'], function ($api) {
         $api->post('login', 'AuthController@login');
         $api->post('register', 'AuthController@register');
+
+        $api->post('provider-login','LoginController@login');
         // $api->post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         // $api->post('password/reset', 'ResetPasswordController@reset');
         $api->post('password/forgot', 'ForgotPasswordController@autoGeneratePassword');

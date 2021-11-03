@@ -20,6 +20,8 @@ Route::resource('service','AdminSeller\ServiceController');
 Route::resource('review','AdminSeller\ReviewController');
 Route::resource('bookings','AdminSeller\BookingsController');
 Route::resource('provider','AdminSeller\ProviderController');
+Route::resource('permissions','AdminSeller\PermissionsController');
+Route::resource('role','AdminSeller\RoleController');
 Route::resource('image_optimize','AdminSeller\ImageOptimizeController');
 
 // Route::post('category-destory','AdminSeller\CategoryController@destory')->name('category.destory');

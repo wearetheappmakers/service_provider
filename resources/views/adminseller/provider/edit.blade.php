@@ -1,6 +1,7 @@
 @php
 $edit = $data['edit'];
 $categories_select = $data['categories_select'];
+$roles_select = $data['roles_select'];
 @endphp
 <div class="kt-portlet__body">
 	<div class="form-group row">
@@ -45,6 +46,16 @@ $categories_select = $data['categories_select'];
 		</div>
 	</div>
 	<div class="form-group row">
+
+		 <div class="col-lg-4">
+            <label>Roles:<span class="requied_field">*</span></label>
+            <select class="form-control selectpicker" name="role_id[]" multiple required="">
+                <option value="">Select Permissions</option>
+                @foreach($roles_select as $k=>$c)
+                <option value="{{$c->id}}" @if(in_array($c->id,$edit->role_id)) selected @endif>{{$c->title}}</option>
+                @endforeach
+            </select>
+        </div>
 		<div class="col-lg-4">
 			<label>Status:</label>
 			<select class="form-control" name="status">

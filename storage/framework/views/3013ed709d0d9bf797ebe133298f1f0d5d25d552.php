@@ -68,7 +68,11 @@
 
 								<th><input type="checkbox" id="selectall" /></th>
 
-								<th>Name</th>
+								<th>Key</th>
+
+								<th>Title</th>
+
+								<th>Permissions</th>
 
 								<!-- <th>Seller ID</th> -->
 
@@ -99,11 +103,11 @@
 
 <?php echo $__env->make('admin.layout.multiple_action', array(
 
-					'table_name' => 'bookingstatus',
+					'table_name' => 'role',
 
 					'is_orderby'=>'yes',
 
-					'folder_name'=>'bookingstatus',
+					'folder_name'=>'role',
 
 					'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
@@ -153,10 +157,18 @@
 
 				{
 
-					"data": "name"
+					"data": "key"
 
 				},
+				{
 
+					"data": "title"
+
+				},
+				{
+
+					"data": "permissions1"
+				},
 				// {
 
 				// 	"data": "seller_id"
@@ -199,4 +211,4 @@
 
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/bookingstatus/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/role/index.blade.php ENDPATH**/ ?>

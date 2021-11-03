@@ -36,6 +36,16 @@
 
 						<div class="kt-portlet__head-actions">
 
+						
+							<a href="<?php echo e(route('admin.'.$resourcePath.'.create')); ?>" class="btn btn-brand btn-elevate btn-icon-sm">
+
+								<i class="la la-plus"></i>
+
+								Add <?php echo e($module); ?>
+
+
+							</a>
+						
 						</div>
 
 					</div>
@@ -58,28 +68,13 @@
 
 								<th><input type="checkbox" id="selectall" /></th>
 
-								<th>Customer</th>
+								<th>Name</th>
 
-								<th>Provider</th>
-
-								<th>Service</th>
-
-								<th>Booking Status</th>
-
-								<th>Booking_At</th>
-
-								<th>Notes</th>
-
-								<th>Address Name</th>
-
-								<th>Address Details</th>
-
-								<th>Total</th>
+								<!-- <th>Seller ID</th> -->
 
 								<th>Status</th>
 
 								<th>Action</th>
-
 
 							</tr>
 
@@ -104,15 +99,15 @@
 
 <?php echo $__env->make('admin.layout.multiple_action', array(
 
-'table_name' => 'bookings',
+					'table_name' => 'permissions',
 
-'is_orderby'=>'yes',
+					'is_orderby'=>'yes',
 
-'folder_name'=>'bookings',
+					'folder_name'=>'permissions',
 
-'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
+					'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
-), \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					), \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 
@@ -148,82 +143,44 @@
 
 			columns: [{
 
-				orderable: false,
+					orderable: false,
 
-				searchable: false,
+					searchable: false,
 
-				data: 'checkbox',
+					data: 'checkbox',
 
-			},
+				},
 
-			{
+				{
 
-				"data": "service"
+					"data": "title"
 
-			},
+				},
 
-			{
+				// {
 
-				"data": "customer"
+				// 	"data": "seller_id"
 
-			},
-			{
+				// },
+				{
 
-				"data": "provider"
+					orderable: false,
 
-			},
-			{
+					searchable: false,
 
-				"data": "bookingstatus"
+					data: 'singlecheckbox',
 
-			},
-			{
+				},
 
-				"data": "booking_at"
+				{
 
-			},
-			{
+					orderable: false,
 
-				"data": "notes"
+					searchable: false,
 
-			},
-			{
+					data: 'action',
 
-				"data": "address1"
-
-			},
-			{
-
-				"data": "address2"
-
-			},
-
-			{
-
-				"data": "total"
-
-			},
-
-			{
-
-				orderable: false,
-
-				searchable: false,
-
-				data: 'singlecheckbox',
-
-			},
-
-			{
-
-				orderable: false,
-
-				searchable: false,
-
-				data: 'action',
-
-			},
-
+				},
 
 
 
@@ -242,4 +199,4 @@
 
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/bookings/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/permissions/index.blade.php ENDPATH**/ ?>

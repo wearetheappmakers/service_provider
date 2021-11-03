@@ -50,7 +50,7 @@ class GeneralSettingController extends Controller
             $name = ImageHelper::saveUploadedImage(request()->favicon_icon, 'users', storage_path("app/public/uploads/brand/"));
             $param['favicon_icon']= $name;
         }
-
+        
         $oldsettings = GeneralSetting::first();
         $settings = GeneralSetting::where('id',1)->update($param);
         $newsetting = GeneralSetting::first();

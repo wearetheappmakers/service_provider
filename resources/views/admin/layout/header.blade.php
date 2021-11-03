@@ -92,9 +92,9 @@ License: You must have a valid license purchased only from themeforest(the above
 	@php $icon = App\Models\GeneralSetting::where('deleted_at',NULL)->value('favicon_icon'); @endphp
 
 	@if(!empty($icon))
-		<link rel="shortcut icon" href="{{asset('/storage/uploads/brand/'.$icon)}}" />
+	<link rel="shortcut icon" href="{{asset('/storage/uploads/brand/'.$icon)}}" />
 	@else
-		<link rel="shortcut icon" href="{{asset('assets/media/logos/buzzed_logo.png')}}" />
+	<link rel="shortcut icon" href="{{asset('assets/media/logos/buzzed_logo.png')}}" />
 	@endif
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -170,15 +170,19 @@ License: You must have a valid license purchased only from themeforest(the above
 
 						<ul class="kt-menu__nav ">
 							@if(Auth::guard('vendor')->check())
-								<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('vendor.product')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-box"></i><span class="kt-menu__link-text">Product</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('vendor.product')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-box"></i><span class="kt-menu__link-text">Product</span></a></li>
 
-								<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('vendor.revenue.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-percent"></i><span class="kt-menu__link-text">Commision Report</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('vendor.revenue.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-percent"></i><span class="kt-menu__link-text">Commision Report</span></a></li>
 
 							@endif
 
 							@if(Auth::guard('admin')->check())
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookingstatus.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
+
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.permissions.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Permissions</span></a></li>
+
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.role.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Role</span></a></li>
 
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.category.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-layer-group"></i><span class="kt-menu__link-text">Category</span></a></li>
 
@@ -193,7 +197,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.review.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Review</span></a></li>
 
 							<li class="kt-menu__item kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookings.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Bookings</span></a></li>
-												
+
 							@endif
 						</ul>
 
@@ -231,9 +235,9 @@ License: You must have a valid license purchased only from themeforest(the above
 								@php $logo = App\Models\GeneralSetting::where('deleted_at',NULL)->value('logo'); @endphp
 
 								@if(!empty($logo))
-									<img alt="Logo" src="{{asset('/storage/uploads/brand/'.$logo)}}" style="height: 80px; width: 100px;" />
+								<img alt="Logo" src="{{asset('/storage/uploads/brand/'.$logo)}}" style="height: 80px; width: 100px;" />
 								@else
-									<img alt="Logo" src="{{asset('assets/media/logos/buzzed_logo.png')}}" style="height: 80px; width: 100px;" />
+								<img alt="Logo" src="{{asset('assets/media/logos/buzzed_logo.png')}}" style="height: 80px; width: 100px;" />
 								@endif
 
 							</a>
