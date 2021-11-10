@@ -176,29 +176,21 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							@endif
 
-							@if(Auth::guard('admin')->check())
+							@if(Auth::guard('provider')->check())
 
 							
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.permissions.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-unlock-alt"></i><span class="kt-menu__link-text">Permissions</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('provider.vendors.index','all')}}" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-users"></i><span class="kt-menu__link-text">Customer</span></a></li>
 
+							
+							<li class="kt-menu__item kt-menu__item--active" aria-haspopup="true"><a href="{{route('provider.bookings.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon fa fa-receipt"></i><span class="kt-menu__link-text">Bookings</span></a></li>
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.role.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-briefcase"></i><span class="kt-menu__link-text">Role</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('provider.review.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-star"></i><span class="kt-menu__link-text">Review</span></a></li>
+							
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookingstatus.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
+							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href=# class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.category.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-layer-group"></i><span class="kt-menu__link-text">Category</span></a></li>
+							
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.commision.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-money-bill-wave"></i><span class="kt-menu__link-text">Commision</span></a></li>
-
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.vendors.index','all')}}" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-users"></i><span class="kt-menu__link-text">Customer</span></a></li>
-
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.provider.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fas fa-user"></i><span class="kt-menu__link-text">Provider</span></a></li>
-
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.service.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-atom"></i><span class="kt-menu__link-text">Service</span></a></li>
-
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.review.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-star"></i><span class="kt-menu__link-text">Review</span></a></li>
-
-							<li class="kt-menu__item kt-menu__item--active" aria-haspopup="true"><a href="{{route('admin.bookings.index')}}" class="kt-menu__link"><i class="kt-menu__link-icon fa fa-receipt"></i><span class="kt-menu__link-text">Bookings</span></a></li>
 
 							@endif
 						</ul>

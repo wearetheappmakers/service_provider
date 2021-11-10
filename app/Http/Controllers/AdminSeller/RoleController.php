@@ -35,17 +35,17 @@ class RoleController extends Controller
 
             return Datatables::of($query)
             ->addColumn('action', function ($row) {
-             $btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
-             return $btn;
-         })
+               $btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
+               return $btn;
+           })
             ->addColumn('checkbox', function ($row) {
-             $chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
-             return $chk;
-         })
+               $chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
+               return $chk;
+           })
             ->addColumn('singlecheckbox', function ($row) {
-             $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
-             return $schk;
-         })
+               $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
+               return $schk;
+           })
 
             ->addColumn('permissions1', function ($row) {
                 $array=[];
@@ -53,26 +53,26 @@ class RoleController extends Controller
 
 
                 if ($row->permissions_id != '') {
-                
-                   $permissions =(unserialize($row->permissions_id));
+                    
+                 $permissions =(unserialize($row->permissions_id));
 
-                    foreach($permissions as $value){
+                 foreach($permissions as $value){
 
-                        array_push($array,Permissions::where('id',$value)->value('title'));   
-                    }
-
-                    $result = implode(' , ',$array); 
+                    array_push($array,Permissions::where('id',$value)->value('title'));   
                 }
 
-                return $result;
-            })
+                $result = implode(' , ',$array); 
+            }
+
+            return $result;
+        })
 
             ->setRowClass(function () {
-             return 'row-move';
-            })
+               return 'row-move';
+           })
             ->setRowId(function ($row) {
-             return 'row-' . $row->id;
-            })
+               return 'row-' . $row->id;
+           })
             ->rawColumns(['checkbox','singlecheckbox','permissions1','action'])
             ->make(true);
         }
@@ -115,12 +115,12 @@ class RoleController extends Controller
         $commision = $this->model->create($param);
 
         if ($commision){
-           return response()->json(['status'=>'success']);
-       }else{
-           return response()->json(['status'=>'error']);
-       }
+         return response()->json(['status'=>'success']);
+     }else{
+         return response()->json(['status'=>'error']);
+     }
 
-   }
+ }
 
     /**
      * Display the specified resource.
@@ -178,12 +178,12 @@ class RoleController extends Controller
         $commision->update($param);
 
         if ($commision){
-           return response()->json(['status'=>'success']);
-       }else{
-           return response()->json(['status'=>'error']);
-       }
+         return response()->json(['status'=>'success']);
+     }else{
+         return response()->json(['status'=>'error']);
+     }
 
-   }
+ }
 
     /**
      * Remove the specified resource from storage.

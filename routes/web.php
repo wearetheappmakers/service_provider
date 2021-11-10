@@ -37,6 +37,16 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
+Route::group(['prefix' => 'provider'], function () {
+  Route::get('/login', 'ProviderAuth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'ProviderAuth\LoginController@login');
+  Route::post('/logout', 'ProviderAuth\LoginController@logout')->name('logout');
 
+  Route::get('/register', 'ProviderAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'ProviderAuth\RegisterController@register');
 
-
+  Route::post('/password/email', 'ProviderAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'ProviderAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'ProviderAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'ProviderAuth\ResetPasswordController@showResetForm');
+});

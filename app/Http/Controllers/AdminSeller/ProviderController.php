@@ -28,30 +28,30 @@ class ProviderController extends Controller
     
     public function index(Request $request)
     {
-       
+     
         if ($request->ajax()) {
             
             $query = $this->model->latest();
             
             return Datatables::of($query)
             ->addColumn('action', function ($row) {
-               $btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
-               return $btn;
-           })
+             $btn = view('admin.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'admin.'.$this->route,'delete' => route('admin.'.$this->route.'.destroy',$row->id) ])->render();
+             return $btn;
+         })
             ->addColumn('checkbox', function ($row) {
-               $chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
-               return $chk;
-           })
+             $chk = view('admin.layout.checkbox')->with(['id' => $row->id])->render();
+             return $chk;
+         })
             ->addColumn('singlecheckbox', function ($row) {
-               $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
-               return $schk;
-           })
+             $schk = view('admin.layout.singlecheckbox')->with(['id' => $row->id , 'status'=>$row->status])->render();
+             return $schk;
+         })
             ->setRowClass(function () {
-               return 'row-move';
-           })
+             return 'row-move';
+         })
             ->setRowId(function ($row) {
-               return 'row-' . $row->id;
-           })
+             return 'row-' . $row->id;
+         })
             ->rawColumns(['checkbox', 'singlecheckbox','action'])
             ->make(true);
         }
@@ -83,9 +83,9 @@ class ProviderController extends Controller
     }
 
     public function getCategory() {
-       $category_level = Category::treeList();
-       return  $category_level ;
-   }
+     $category_level = Category::treeList();
+     return  $category_level ;
+ }
 
     /**
      * Store a newly created resource in storage.
@@ -105,12 +105,12 @@ class ProviderController extends Controller
         $commision = $this->model->create($param);
 
         if ($commision){
-         return response()->json(['status'=>'success']);
-     }else{
-         return response()->json(['status'=>'error']);
-     }
-     
- }
+           return response()->json(['status'=>'success']);
+       }else{
+           return response()->json(['status'=>'error']);
+       }
+       
+   }
 
     /**
      * Display the specified resource.
@@ -141,7 +141,7 @@ class ProviderController extends Controller
         // $data['edit'] = $this->model->findOrFail($id);
         // // dd($data);
         // if (!empty($data['edit'])) {
-            
+        
         // }
         $data['url'] = route('admin.' . $this->route . '.update', [$this->view => $id]);
         $data['module'] = $this->viewName;
@@ -173,12 +173,12 @@ class ProviderController extends Controller
         $commision->update($param);
         
         if ($commision){
-         return response()->json(['status'=>'success']);
-     }else{
-         return response()->json(['status'=>'error']);
-     }
-     
- }
+           return response()->json(['status'=>'success']);
+       }else{
+           return response()->json(['status'=>'error']);
+       }
+       
+   }
 
     /**
      * Remove the specified resource from storage.

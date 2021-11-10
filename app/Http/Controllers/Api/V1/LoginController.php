@@ -29,7 +29,7 @@ class LoginController extends Controller
         // dd($user->findOrfail(1));
     }
 
-      public function login(Request $request)
+    public function login(Request $request)
     {
         // dd('Hello');
         // echo \Config::get('jwt.user');
@@ -40,29 +40,29 @@ class LoginController extends Controller
         // dd('hello');    
 
         if (is_numeric($request->username)) {
-             $credentials = [
-                'number' => $request->username,
-                'password' => $request->password
-            ];
-        }else{
-            $credentials = [
-                'email' => $request->username,
-                'password' => $request->password
-            ]; 
-        }
+           $credentials = [
+            'number' => $request->username,
+            'password' => $request->password
+        ];
+    }else{
+        $credentials = [
+            'email' => $request->username,
+            'password' => $request->password
+        ]; 
+    }
         // dd(JWTAuth::attempt($credentials));
 
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['success' => 0, 'message' => 'These credentials do not match our records.'], 200);
-            } 
-            
-            
-        } catch (JWTAuthException $e) {
-            return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
-        }
-
-        return response()->json(['success' => 1, 'provider_detail' => JWTAuth::user(), 'token' => $token ]);
+    try {
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['success' => 0, 'message' => 'These credentials do not match our records.'], 200);
+        } 
+        
+        
+    } catch (JWTAuthException $e) {
+        return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
     }
+
+    return response()->json(['success' => 1, 'provider_detail' => JWTAuth::user(), 'token' => $token ]);
+}
 
 }
