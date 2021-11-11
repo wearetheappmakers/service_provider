@@ -187,8 +187,8 @@ License: You must have a valid license purchased only from themeforest(the above
 							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{route('provider.review.index')}}" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-star"></i><span class="kt-menu__link-text">Review</span></a></li>
 							
 
-							<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href=# class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
-
+						<!-- 	<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href=# class="kt-menu__link "><i class="kt-menu__link-icon fa fa-eye"></i><span class="kt-menu__link-text">Booking Status</span></a></li>
+ -->
 							
 
 

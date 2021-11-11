@@ -124,7 +124,9 @@ class ReviewController extends Controller
     $data['resourcePath'] = $this->view;
     // dd($data);
         // return view('provider.general.edit_form', compact('data'));//->with($data);
-        return view('provider.general.edit_form')->with($data);//(working fine)
+        // return view('provider.general.edit_form')->with($data);//(working fine)
+      return view('provider.general.edit_form',compact('data'));
+        
       // return view('provider.providerseller.review.edit')->with($data);
     // return view('provider.providerseller.review.edit',compact('data'));
 

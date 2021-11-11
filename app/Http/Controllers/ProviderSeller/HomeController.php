@@ -107,7 +107,7 @@ class HomeController extends Controller
 	{
 		
 		$id_array = explode(',', $request->get('id'));
-		dd($id_array);
+		// dd($id_array);
 		
 		
 	}

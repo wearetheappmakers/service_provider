@@ -18,7 +18,7 @@ Route::get('/done', function () {
     return view('done');
 });
 
-Route::get('/membershipform','RegistrationController@register')->name('registrationform');
+// Route::get('/membershipform','RegistrationController@register')->name('registrationform');
 
  Route::auth();
 

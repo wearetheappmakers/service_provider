@@ -140,13 +140,15 @@ class BookingsController extends Controller
     $data['bookingstatus_select'] = BookingStatus::where('status',1)->get();
 
     $data['url'] = route('provider.' . $this->route . '.update', [$this->view => $id]);
+     $data['index'] = route('provider.' . $this->route . '.index','all');
+
     $data['module'] = $this->viewName;
     $data['resourcePath'] = $this->view;
-    // dd($data);
-
-      return view('provider.providerseller.bookings.edit')->with($data);
-
-      
+    
+      // return view('provider.providerseller.bookings.edit',compact('data'));//without theme page work fine
+      // return view('provider.general.edit_form')->with($data);
+      return view('provider.general.edit_form',compact('data'));
+        // return view('provider.general.edit_form')->with($data);//(working fine)
 
     }
 
@@ -154,7 +156,7 @@ class BookingsController extends Controller
     {
 
         $param = $request->all();
-
+// dd($param);
         $param['status']=empty($request->status)? 0 : $request->status;
         unset($param['_token'], $param['_method']);
         

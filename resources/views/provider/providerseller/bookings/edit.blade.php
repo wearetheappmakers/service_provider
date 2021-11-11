@@ -1,6 +1,5 @@
 @php
 $edit = $data['edit'];
-dd($data['edit']);
 $service_select = $data['service_select'];
 $customer_select = $data['customer_select'];
 $provider_select = $data['provider_select'];
@@ -95,5 +94,5 @@ $bookingstatus_select = $data['bookingstatus_select'];
 
     </div>
 
-    @include('admin.layout.status_checkbox',array('data' => $edit->status))
+    @include('provider.layout.status_cheackbox',array('data' => $edit->status))
 </div>

@@ -38,7 +38,7 @@
             </label>
         </div>
         <div class="col kt-align-right">
-            <a href="{{ url('/admin/password/reset') }}" class="kt-login__link">Forget Password ?</a>
+            <a href="{{ url('/provider/password/reset') }}" class="kt-login__link">Forget Password ?</a>
         </div>
     </div>
     <div class="kt-login__actions">

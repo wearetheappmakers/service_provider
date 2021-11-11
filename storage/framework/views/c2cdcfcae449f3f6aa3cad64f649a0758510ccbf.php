@@ -43,12 +43,13 @@ $id = $data['edit']->id;
                         // exit;
                         ?>
 
-                    <form class="kt-form kt-form--label-right edit_form1" method="put" action="<?php echo e($url); ?>">
+                    <form class="kt-form kt-form--label-right edit_form" >
 
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('PUT'); ?>
                         
-                        <?php echo $__env->make('providerseller.'.$resourcePath.'.edit', array('data' => $data), \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        <?php echo $__env->make('provider.providerseller.'.$resourcePath.'.edit', array('data' => $data), \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    <input type="hidden" name="id" value="<?php echo e($id); ?>">
 
                         <div class="kt-portlet__foot">
 
@@ -92,18 +93,18 @@ $id = $data['edit']->id;
        	$(".update").on("click", function (e)
 		{
 			e.preventDefault();
-			if ($(".edit_form1").valid())
+			if ($(".edit_form").valid())
 			{   
                 $('.change_button').find('.change_spin').removeClass('d-none');
                 $('.change_button').prop('disabled', true);
 				$.ajax({
 
 					type: "POST",
-					  headers: {
-                      'X-CSSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      },
-					url: "<?php echo e(route('provider.'.$resourcePath.'.update', array($resourcePath=>$id))); ?>", 
-					data: new FormData($('.edit_form1')[0]),
+					 //  headers: {
+      //   'X-CSSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      // },
+					url: "<?php echo e(route('provider.'.$resourcePath.'.update',$id)); ?>", 
+					data: new FormData($('.edit_form')[0]),
 					processData: false,
 					contentType: false,
 					success: function (data)

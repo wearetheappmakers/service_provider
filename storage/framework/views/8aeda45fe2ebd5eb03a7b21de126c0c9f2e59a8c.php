@@ -1,8 +1,6 @@
-@extends('provider.main')
+<?php $__env->startSection('content'); ?>
 
-@section('content')
-
-<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+<link href="<?php echo e(asset('assets/plugins/custom/datatables/datatables.bundle.css')); ?>" rel="stylesheet" type="text/css" />
 
 
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -25,7 +23,8 @@
 
 					<h3 class="kt-portlet__head-title">
 
-						{{ $module }}
+						<?php echo e($module); ?>
+
 
 					</h3>
 
@@ -51,7 +50,7 @@
 
 					<table class="table table-striped- table-bordered table-hover table-checkable datatable" id="datatable_rows">
 
-						@csrf
+						<?php echo csrf_field(); ?>
 
 						<thead>
 
@@ -103,7 +102,7 @@
 
 </div>
 
-@include('provider.layout.multiple_action', array(
+<?php echo $__env->make('provider.layout.multiple_action', array(
 
 'table_name' => 'bookings',
 
@@ -113,15 +112,15 @@
 
 'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
-))
+), \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-@stop
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 
 
 
-<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+<script src="<?php echo e(asset('assets/plugins/custom/datatables/datatables.bundle.js')); ?>" type="text/javascript"></script>
 
 
 
@@ -145,7 +144,7 @@
 
 			}],
 
-			ajax: "{{ route('provider.'.$resourcePath.'.index') }}",
+			ajax: "<?php echo e(route('provider.'.$resourcePath.'.index')); ?>",
 
 			columns: [{
 
@@ -243,4 +242,5 @@
 
 
 
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('provider.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/provider/providerseller/bookings/index.blade.php ENDPATH**/ ?>

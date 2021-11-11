@@ -27,12 +27,13 @@ Route::group(['prefix' => 'bookings'], function () {
     Route::get('/create/form', 'ProviderSeller\BookingsController@create')->name('bookings.create');
     Route::post('/store/form', 'ProviderSeller\BookingsController@store')->name('bookings.store');
     Route::get('/edit/{id}', 'ProviderSeller\BookingsController@edit')->name('bookings.edit');
-    Route::post('/update/form', 'ProviderSeller\BookingsController@update')->name('bookings.update');
+    Route::put('/update/{id}', 'ProviderSeller\BookingsController@update')->name('bookings.update');
     Route::post('/destory/{id}', 'ProviderSeller\BookingsController@destroy')->name('bookings.destory');
     Route::any('/change/status','ProviderSeller\BookingsController@change_status')->name('bookings.change_status');
 });
 
 //review
+// Route::resource('bookings','ProviderSeller\BookingsController');
 
 Route::resource('review','ProviderSeller\ReviewController');
 

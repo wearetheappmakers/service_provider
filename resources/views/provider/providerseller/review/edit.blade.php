@@ -39,5 +39,5 @@ $customer_select = $data['customer_select'];
 
     </div>
 
-    @include('provider.layout.status_checkbox',array('data' => $edit->status))
+    @include('provider.layout.status_cheackbox',array('data' => $edit->status))
 </div>

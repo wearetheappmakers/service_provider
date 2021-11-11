@@ -42,13 +42,13 @@ $id = $data['edit']->id;
                         }
                         // echo $index;
                         // exit;
-                        @endphp
+                    @endphp
 
                     <form class="kt-form kt-form--label-right edit_form" method="put" action="{{$url}}">
 
                         @csrf
                         @method('PUT')
-                        
+                    
                         @include('adminseller.'.$resourcePath.'.edit', array('data' => $data))
 
                         <div class="kt-portlet__foot">

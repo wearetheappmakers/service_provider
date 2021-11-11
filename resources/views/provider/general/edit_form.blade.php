@@ -44,12 +44,13 @@ $id = $data['edit']->id;
                         // exit;
                         @endphp
 
-                    <form class="kt-form kt-form--label-right edit_form" method="put" action="{{$url}}">
+                    <form class="kt-form kt-form--label-right edit_form" >
 
                         @csrf
                         @method('PUT')
                         
-                        @include('providerseller.'.$resourcePath.'.edit', array('data' => $data))
+                        @include('provider.providerseller.'.$resourcePath.'.edit', array('data' => $data))
+                    <input type="hidden" name="id" value="{{$id}}">
 
                         <div class="kt-portlet__foot">
 
@@ -100,10 +101,10 @@ $id = $data['edit']->id;
 				$.ajax({
 
 					type: "POST",
-					  headers: {
-        'X-CSSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-					url: "{{route('provider.'.$resourcePath.'.update', array($resourcePath=>$id))}}", 
+					 //  headers: {
+      //   'X-CSSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      // },
+					url: "{{route('provider.'.$resourcePath.'.update',$id)}}", 
 					data: new FormData($('.edit_form')[0]),
 					processData: false,
 					contentType: false,
