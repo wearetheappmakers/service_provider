@@ -89,19 +89,28 @@ public function login(Request $request)
         // \Config::set('jwt.user', "App\Customer");
     \Config::set('jwt.user', "App\User");
     \Config::set('auth.providers.users.model', \App\User::class);
-
+$users='';
     if (is_numeric($request->username)) {
+      $password=User::where('number',$request->username)->value('spassword');
+      $users=User::where('number',$request->username)->first();
        $credentials = [
         'number' => $request->username,
-        'password' => $request->password
+        'password'=>$password
+        
     ];
-}else{
+    // dd($credentials);
+}
+else{
+    $password=User::where('email',$request->username)->value('spassword');
+        $users=User::where('email',$request->username)->first();
     $credentials = [
         'email' => $request->username,
-        'password' => $request->password
+        'password'=>$password
+        
     ]; 
-}
+    // dd($credentials);
 
+}
 try {
     if (!$token = JWTAuth::attempt($credentials)) {
         return response()->json(['success' => 0, 'message' => 'These credentials do not match our records.'], 200);
@@ -111,15 +120,43 @@ try {
 } catch (JWTAuthException $e) {
     return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
 }
-// dd(JWTAuth::user());
+
+
+
+
+        $user = JWTAuth::user();
+        $user->otp = rand(99,9999);
+        $user->otp_verify = 0;
+        $user->save();
+
+        $user = JWTAuth::user();
+        $user->country_id = $request->country_id;
+        $user->save();
+        // dd($user);
+// dd(JWTAuth::fromUser($users));
 if(JWTAuth::user()->type ==="Provider"){
    \Config::set('jwt.user', "App\Models\Provider");
    \Config::set('auth.providers.users.model', \App\Models\Provider::class);
 
 }
 
-return response()->json(['success' => 1, 'user_detail' => JWTAuth::user(), 'token' => $token ]);
+return response()->json(['success' => 1, 'user_detail' => JWTAuth::user(), 'token' => $token, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user ]);
 }
+
+ public function otpVerify(Request $request){
+        $user = JWTAuth::user();
+
+        if ($user->otp == $request->otp) {
+
+            $user->otp_verify = 1;
+            $user->save();
+            // dd($user);
+
+            return response()->json(['success' => 1, 'message' => 'otp verify successfully', 'data' => $user ]);
+        }else{
+            return response()->json(['success' => 0, 'message' => 'otp is wrong! please try again!']);
+        }
+    }
 
 public function changepassword(Request $request){
 

@@ -23,9 +23,12 @@ class LoginController extends Controller
 {
 	private $user;
 
+
     public function __construct(Provider $provider)
     {
         $this->user = $provider;
+
+
         // dd($user->findOrfail(1));
     }
 
@@ -40,14 +43,21 @@ class LoginController extends Controller
         // dd('hello');    
 
         if (is_numeric($request->username)) {
+        $password=Provider::where('number',$request->username)->value('spassword');
+
            $credentials = [
             'number' => $request->username,
-            'password' => $request->password
+            // 'country_id'=> $request->country_id,
+            'password'=>$password
         ];
+        // dd($credentials);
     }else{
+        
+       $password=Provider::where('email',$request->username)->value('spassword');
+
         $credentials = [
             'email' => $request->username,
-            'password' => $request->password
+            'password'=>$password
         ]; 
     }
         // dd(JWTAuth::attempt($credentials));
@@ -62,7 +72,33 @@ class LoginController extends Controller
         return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
     }
 
-    return response()->json(['success' => 1, 'provider_detail' => JWTAuth::user(), 'token' => $token ]);
+     $user = JWTAuth::user();
+        $user->otp = rand(99,9999);
+        $user->otp_verify = 0;
+        $user->save();
+
+     $user = JWTAuth::user();
+        $user->country_id = $request->country_id;
+        $user->save();
+        // dd($user);
+
+    return response()->json(['success' => 1, 'provider_detail' => JWTAuth::user(), 'token' => $token, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user ]);
 }
+
+
+     public function providerotpVerify(Request $request){
+        $user = JWTAuth::user();
+
+        if ($user->otp == $request->otp) {
+
+            $user->otp_verify = 1;
+            $user->save();
+            // dd($user);
+
+            return response()->json(['success' => 1, 'message' => 'otp verify successfully', 'data' => $user ]);
+        }else{
+            return response()->json(['success' => 0, 'message' => 'otp is wrong! please try again!']);
+        }
+    }
 
 }

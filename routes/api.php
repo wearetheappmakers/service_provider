@@ -32,6 +32,10 @@ $api->version('v1', function ($api) {
 
         $api->group(['middleware' => 'jwt.verify'], function ($api_child) {
 
+             $api_child->post('otp-verify', 'AuthController@otpVerify');
+             $api_child->post('provider-otp-verify', 'LoginController@providerotpVerify');
+
+          
             //Review
             $api_child->post('createreview','ReviewController@createreview');
             $api_child->get('viewreview','ReviewController@viewreview');
