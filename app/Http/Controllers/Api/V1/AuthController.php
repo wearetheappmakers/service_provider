@@ -125,7 +125,7 @@ try {
 
 
         $user = JWTAuth::user();
-        $user->otp = rand(99,9999);
+        $user->otp = rand(100000,999999);
         $user->otp_verify = 0;
         $user->save();
 

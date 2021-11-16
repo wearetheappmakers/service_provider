@@ -38,12 +38,13 @@ class LoginController extends Controller
         // echo \Config::get('jwt.user');
         // exit;
         // \Config::set('jwt.user', "App\Customer");
-        \Config::set('jwt.user', "App\Models\Provider");
-        \Config::set('auth.providers.users.model', \App\Models\Provider::class);
+        \Config::set('jwt.user', "App\Provider");
+        \Config::set('auth.providers.users.model', \App\Provider::class);
         // dd('hello');    
 
         if (is_numeric($request->username)) {
         $password=Provider::where('number',$request->username)->value('spassword');
+
 
            $credentials = [
             'number' => $request->username,
@@ -60,6 +61,7 @@ class LoginController extends Controller
             'password'=>$password
         ]; 
     }
+        // dd($credentials);
         // dd(JWTAuth::attempt($credentials));
 
     try {
@@ -73,29 +75,43 @@ class LoginController extends Controller
     }
 
      $user = JWTAuth::user();
-        $user->otp = rand(99,9999);
-        $user->otp_verify = 0;
+     // dd($user);
+        $user->otp = rand(100000,999999);
+        $user->otp_verifyy = 0;
         $user->save();
+        // dd($user);
 
      $user = JWTAuth::user();
         $user->country_id = $request->country_id;
         $user->save();
         // dd($user);
-
+ // $this->user =$user;
     return response()->json(['success' => 1, 'provider_detail' => JWTAuth::user(), 'token' => $token, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user ]);
 }
+ 
 
-
-     public function providerotpVerify(Request $request){
+     public function providerotpVerify(Request $request, Provider $provider){
+        \Config::set('jwt.user', "App\Provider");
+        \Config::set('auth.providers', ['users' => [
+            'driver' => 'eloquent',
+            'model' => \App\Provider::class,
+        ]]);
+        // \Config::set('auth.providers.users.model', );
+         
+        // dd(JWTAuth::);
+        // dd(\Config::get('auth.providers.users.model'));
         $user = JWTAuth::user();
+        // dd($user);
+        // dd(JWTAuth::user());
 
         if ($user->otp == $request->otp) {
 
-            $user->otp_verify = 1;
+            $user->otp_verifyy = 1;
+            // dd($user->otp_verifyy);
             $user->save();
             // dd($user);
 
-            return response()->json(['success' => 1, 'message' => 'otp verify successfully', 'data' => $user ]);
+            return response()->json(['success' => 1, 'message' => 'otp verify successfully', 'dataa' => $user ]);
         }else{
             return response()->json(['success' => 0, 'message' => 'otp is wrong! please try again!']);
         }
