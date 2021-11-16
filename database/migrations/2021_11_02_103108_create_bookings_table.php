@@ -24,6 +24,7 @@ class CreateBookingsTable extends Migration
             $table->text('address1');
             $table->text('address2');
             $table->double('total',8,2);
+            $table->tinyInteger('status')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });
