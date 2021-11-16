@@ -34,6 +34,18 @@ class LoginController extends Controller
 
 
     public function login(Request $request){
+        if(!($request->username))
+        {
+            return response()->json(['success'=>0,'message'=>'username is required'],200);
+        }
+       
+
+        $check = Provider::where('number',$request->get('username'))->first();
+        if(!(isset($check)))
+        {
+            return response()->json(['success' => 0, 'message' => 'No number found.'], 200);
+        }
+
         if (is_numeric($request->username)) {
             $user=Provider::where('number',$request->username)->first();
             $user->otp = rand(100000,999999);
