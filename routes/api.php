@@ -18,8 +18,10 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\V1', 'prefix' => 'v1'], function ($api) {
         $api->post('login', 'AuthController@login');
         $api->post('register', 'AuthController@register');
+        $api->post('otp-verify', 'AuthController@otpVerify');
 
         $api->post('provider-login','LoginController@login');
+        $api->post('provider-otp-verify', 'LoginController@providerotpVerify');
         // $api->post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         // $api->post('password/reset', 'ResetPasswordController@reset');
         $api->post('password/forgot', 'ForgotPasswordController@autoGeneratePassword');
@@ -32,31 +34,31 @@ $api->version('v1', function ($api) {
 
         $api->group(['middleware' => 'jwt.verify'], function ($api_child) {
 
-             $api_child->post('otp-verify', 'AuthController@otpVerify');
-             $api_child->post('provider-otp-verify', 'LoginController@providerotpVerify');
+           
+           
 
-          
+
             //Review
-            $api_child->post('createreview','ReviewController@createreview');
-            $api_child->get('viewreview','ReviewController@viewreview');
-            $api_child->post('editreview','ReviewController@editreview');
-            $api_child->post('updatereview','ReviewController@updatereview');
-            $api_child->post('deletereview','ReviewController@deletereview');
+           $api_child->post('createreview','ReviewController@createreview');
+           $api_child->get('viewreview','ReviewController@viewreview');
+           $api_child->post('editreview','ReviewController@editreview');
+           $api_child->post('updatereview','ReviewController@updatereview');
+           $api_child->post('deletereview','ReviewController@deletereview');
 
             //Bookings
-            $api_child->post('create-bookings','BookingsController@createbookings');
-            $api_child->post('edit-bookings','BookingsController@editbookings');
-            $api_child->post('update-bookings','BookingsController@updatebookings');
-            $api_child->post('delete-bookings','BookingsController@deletebookings');
+           $api_child->post('create-bookings','BookingsController@createbookings');
+           $api_child->post('edit-bookings','BookingsController@editbookings');
+           $api_child->post('update-bookings','BookingsController@updatebookings');
+           $api_child->post('delete-bookings','BookingsController@deletebookings');
 
 
-            $api_child->get('get-home', 'HomeController@index');
-            $api_child->post('update-profile-detail', 'AuthController@updateProfileDetail');
+           $api_child->get('get-home', 'HomeController@index');
+           $api_child->post('update-profile-detail', 'AuthController@updateProfileDetail');
 
-            $api_child->post('change-password', 'AuthController@changepassword');
-            $api_child->post('update-user-details', 'AuthController@update_user');
-            $api_child->get('get-user-details', 'AuthController@getUser');
+           $api_child->post('change-password', 'AuthController@changepassword');
+           $api_child->post('update-user-details', 'AuthController@update_user');
+           $api_child->get('get-user-details', 'AuthController@getUser');
 
-        });
+       });
     });
 });

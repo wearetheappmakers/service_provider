@@ -32,89 +32,80 @@ class LoginController extends Controller
         // dd($user->findOrfail(1));
     }
 
-    public function login(Request $request)
-    {
-        // dd('Hello');
-        // echo \Config::get('jwt.user');
-        // exit;
-        // \Config::set('jwt.user', "App\Customer");
-        \Config::set('jwt.user', "App\Provider");
-        \Config::set('auth.providers.users.model', \App\Provider::class);
-        // dd('hello');    
 
+    public function login(Request $request){
         if (is_numeric($request->username)) {
-        $password=Provider::where('number',$request->username)->value('spassword');
+            $user=Provider::where('number',$request->username)->first();
+            $user->otp = rand(100000,999999);
+            $user->otp_verifyy = 0;
+            $user->country_id = $request->country_id;
+            $user->save();
+            return response()->json(['success' => 1, 'id' => $user->id, 'otp' => $user->otp,'provider_user'=>$user,'username'=>$request->username ]);
 
 
-           $credentials = [
-            'number' => $request->username,
-            // 'country_id'=> $request->country_id,
-            'password'=>$password
-        ];
-        // dd($credentials);
+        }else{
+
+           $user=Provider::where('email',$request->username)->value('spassword');
+
+           $user->otp = rand(100000,999999);
+           $user->otp_verifyy = 0;
+           $user->country_id = $request->country_id;
+           $user->save();
+           return response()->json(['success' => 1, 'id' => $user->id, 'otp' => $user->otp,'provider_user'=>$user,'username'=>$request->username ]);
+
+       }
+
+   }
+
+   public function providerotpVerify(Request $request, Provider $provider){
+
+    \Config::set('jwt.user', "App\Provider");
+    \Config::set('auth.providers', ['users' => [
+        'driver' => 'eloquent',
+        'model' => \App\Provider::class,
+    ]]);
+
+    if (is_numeric($request->username)) {
+        $provider=Provider::where('number',$request->username)->first();
+        if($provider->otp == $request->otp){
+            $credentials = [
+                'number' => $request->username,
+                'password'=>$provider->spassword
+            ];    
+        }else{
+            return response()->json(['success' => 0, 'message' => 'otp is wrong! please try again!']);
+        }   
     }else{
-        
-       $password=Provider::where('email',$request->username)->value('spassword');
+        $provider=Provider::where('number',$request->username)->first();
 
-        $credentials = [
-            'email' => $request->username,
-            'password'=>$password
-        ]; 
+        if($provider->otp == $request->otp){
+            $credentials = [
+                'email' => $request->username,
+                'password'=>$provider->spassword
+            ];    
+        }else{
+            return response()->json(['success' => 0, 'message' => 'otp is wrong! please try again!']);
+        }  
     }
-        // dd($credentials);
-        // dd(JWTAuth::attempt($credentials));
 
     try {
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['success' => 0, 'message' => 'These credentials do not match our records.'], 200);
         } 
-        
-        
+
+
     } catch (JWTAuthException $e) {
         return response()->json(['success' => 0, 'message' => 'failed_to_create_token'], 200);
     }
 
-     $user = JWTAuth::user();
-     // dd($user);
-        $user->otp = rand(100000,999999);
-        $user->otp_verifyy = 0;
-        $user->save();
-        // dd($user);
+    $nuser = JWTAuth::user();
 
-     $user = JWTAuth::user();
-        $user->country_id = $request->country_id;
-        $user->save();
-        // dd($user);
- // $this->user =$user;
-    return response()->json(['success' => 1, 'provider_detail' => JWTAuth::user(), 'token' => $token, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user ]);
+    $nuser->otp = '';
+    $nuser->otp_verifyy = 1;
+    $nuser->save();
+
+    return response()->json(['success' => 1,  'id' => $nuser->id,'provider_user'=>$nuser ,'token' => $token, ]);
+
 }
- 
-
-     public function providerotpVerify(Request $request, Provider $provider){
-        \Config::set('jwt.user', "App\Provider");
-        \Config::set('auth.providers', ['users' => [
-            'driver' => 'eloquent',
-            'model' => \App\Provider::class,
-        ]]);
-        // \Config::set('auth.providers.users.model', );
-         
-        // dd(JWTAuth::);
-        // dd(\Config::get('auth.providers.users.model'));
-        $user = JWTAuth::user();
-        // dd($user);
-        // dd(JWTAuth::user());
-
-        if ($user->otp == $request->otp) {
-
-            $user->otp_verifyy = 1;
-            // dd($user->otp_verifyy);
-            $user->save();
-            // dd($user);
-
-            return response()->json(['success' => 1, 'message' => 'otp verify successfully', 'dataa' => $user ]);
-        }else{
-            return response()->json(['success' => 0, 'message' => 'otp is wrong! please try again!']);
-        }
-    }
 
 }

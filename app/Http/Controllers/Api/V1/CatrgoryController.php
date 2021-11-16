@@ -16,6 +16,7 @@ class CatrgoryController extends Controller
     public function index()
     {
         $data = Category::newtree();
+
         return response()->json(['success' => 1, 'records' => $data], 200);
     }
 

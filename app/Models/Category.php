@@ -106,4 +106,16 @@ class Category extends Model
         return env('APP_URL').'/storage/uploads/category/Big/'.$this->banner_image;
     }
 
+    // public function getBannerFullPathAttribute()
+    // {
+    //     if($this->banner_image)
+    //     {
+    //         return asset('/storage/banner_image/'.$this->image);
+    //     }
+    //     else{
+
+    //         return Null;
+    //     }
+    // }
+
 }
