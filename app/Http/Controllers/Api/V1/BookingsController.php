@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Bookings;
 use App\Models\Address;
 use App\Models\BookingStatus;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\CustomeHelper;
@@ -54,8 +55,7 @@ class BookingsController extends Controller
      public function viewbookings(Request $request)
     {
 //          $viewbookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
-// servicename
-        // return response()->json(['success' => 1, 'data'=> $viewbookings],200);
+
 
         $bookings1 = [];
 
@@ -66,8 +66,9 @@ $bookings = Bookings::get();
         foreach($bookings as $booking)
         {
             $bookings1[] =[
-            'customer_id' =>JWTAuth::user()->id,
+            'customer_id'=>$booking->customer_id,
             'provider_id' => $booking->provider_id,
+            'provider' => $booking->providerename,
             'service_id' => $booking->service_id,
             'service'=> $booking->servicename,
             'status_id'=> $booking->status_id,

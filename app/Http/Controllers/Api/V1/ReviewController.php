@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Review;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\CustomeHelper;
@@ -33,10 +34,34 @@ class ReviewController extends Controller
 
     public function viewreview(Request $request)
     {
-         $viewreview = Review::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
+        //  $viewreview = Review::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
 
 
-        return response()->json(['success' => 1, 'data'=> $viewreview],200);
+        // return response()->json(['success' => 1, 'data'=> $viewreview],200);
+
+
+        $review1 = [];
+
+        // $bookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
+        $reviews = Review::get();
+       // dd($reviews);
+
+        foreach($reviews as $review)
+        {
+            $review1[] =[
+
+            'id'=>$review->id,
+            'customer_id'=>$review->customer_id,
+            'service_id' => $review->service_id,
+            'service'=> $review->servicename,
+            'content'=> $review->content,
+            'rating'=> $review->rating,
+
+        ];
+
+        }
+
+        return response()->json(['success' => 1, 'review'=>$review1]);
 
     }
 

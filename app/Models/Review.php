@@ -13,6 +13,8 @@ class Review extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
-   
+     public function servicename (){
+        return $this->belongsTo('App\Models\Service','service_id','id');
+    }
 
 }

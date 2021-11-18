@@ -17,9 +17,13 @@ class Bookings extends Model
    public function servicename (){
         return $this->belongsTo('App\Models\Service','service_id','id');
     }
+   public function providerename (){
+        return $this->belongsTo('App\Models\Provider','provider_id','id');
+    }
     public function statusname (){
         return $this->belongsTo('App\Models\BookingStatus','status_id','id');
     }
+
 
 
 }
