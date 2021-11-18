@@ -104,8 +104,19 @@ public function login(Request $request)
         $check = User::where('number',$request->get('username'))->first();
         if(!(isset($check)))
         {
-            return response()->json(['success' => 0, 'message' => 'No number found.'], 200);
+            $user = new User();
+            $user->number = $request->username;
+
+            $user->otp = rand(100000,999999);
+            $user->otp_verify = 0;
+            $user->country_id = $request->country_id;
+            $user->spassword = 'Applified@2021';
+            $user->password = bcrypt('Applified@2021');
+            $user->save();
+            return response()->json(['success' => 1, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user,'username'=>$request->username ]);
+           
         }
+        
        
      if (is_numeric($request->username)) {
             $user=User::where('number',$request->username)->first();
@@ -117,6 +128,7 @@ public function login(Request $request)
 
 
         }else{
+          
 
            $user=User::where('email',$request->username)->value('spassword');
 
