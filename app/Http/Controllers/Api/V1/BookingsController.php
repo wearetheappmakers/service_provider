@@ -35,6 +35,14 @@ class BookingsController extends Controller
 
     }  
 
+     public function viewbookings(Request $request)
+    {
+         $viewbookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
+         
+        return response()->json(['success' => 1, 'data'=> $viewbookings],200);
+
+    }
+
     public function editbookings(Request $request)
     {
         $editbookings = Bookings::where('id',$request->id)->first();

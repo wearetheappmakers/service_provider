@@ -89,7 +89,7 @@ class LoginController extends Controller
         }   
     }else{
         $provider=Provider::where('number',$request->username)->first();
-
+        
         if($provider->otp == $request->otp){
             $credentials = [
                 'email' => $request->username,

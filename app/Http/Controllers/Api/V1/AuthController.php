@@ -31,6 +31,18 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+         if(!($request->number))
+        {
+            return response()->json(['success'=>0,'message'=>'number is required'],200);
+        }
+
+        $numbercheck = User::where('number',$request->number)->first();
+
+        
+        if(isset($numbercheck))
+        {
+            return response()->json(['success'=>0,'message'=>'number already in use.'],200);
+        }
 
         try{
 

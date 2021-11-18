@@ -47,6 +47,7 @@ $api->version('v1', function ($api) {
 
             //Bookings
            $api_child->post('create-bookings','BookingsController@createbookings');
+           $api_child->get('view-bookings','BookingsController@viewbookings');
            $api_child->post('edit-bookings','BookingsController@editbookings');
            $api_child->post('update-bookings','BookingsController@updatebookings');
            $api_child->post('delete-bookings','BookingsController@deletebookings');
