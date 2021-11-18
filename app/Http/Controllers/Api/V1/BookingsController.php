@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Bookings;
+use App\Models\Address;
+use App\Models\BookingStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\CustomeHelper;
@@ -34,13 +36,53 @@ class BookingsController extends Controller
         return response()->json(['success' => 1, 'data'=> $createbookings],200);
 
     }  
+    public function address(Request $request)
+    {
+        $address = new Address();
+
+        $address->user_id = $request->user_id;
+        $address->latitude = $request->latitude;
+        $address->longitude = $request->longitude;
+        $address->address = $request->address;
+        $address->save();
+
+        $address= Address::where('user_id',$request->user_id)->get();
+
+        return response()->json(['success'=> 1, 'data'=>$address],200);
+    }
 
      public function viewbookings(Request $request)
     {
-         $viewbookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
-         
-        return response()->json(['success' => 1, 'data'=> $viewbookings],200);
+//          $viewbookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
+// servicename
+        // return response()->json(['success' => 1, 'data'=> $viewbookings],200);
 
+        $bookings1 = [];
+
+        // $bookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
+$bookings = Bookings::get();
+// dd($bookings);
+
+        foreach($bookings as $booking)
+        {
+            $bookings1[] =[
+            'customer_id' =>JWTAuth::user()->id,
+            'provider_id' => $booking->provider_id,
+            'service_id' => $booking->service_id,
+            'service'=> $booking->servicename,
+            'status_id'=> $booking->status_id,
+            'status'=> $booking->statusname,
+            'booking_at'=> $booking->booking_at,
+            'notes' => $booking->notes,
+            'address1' => $booking->address1,
+            'address2' => $booking->address2,
+            'total'=> $booking->total,
+
+        ];
+
+        }
+
+        return response()->json(['success' => 1, 'booking'=>$bookings1]);
     }
 
     public function editbookings(Request $request)

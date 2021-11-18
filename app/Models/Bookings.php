@@ -12,6 +12,14 @@ class Bookings extends Model
     protected $table = 'bookings';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
+  
+
+   public function servicename (){
+        return $this->belongsTo('App\Models\Service','service_id','id');
+    }
+    public function statusname (){
+        return $this->belongsTo('App\Models\BookingStatus','status_id','id');
+    }
 
 
 }

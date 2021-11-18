@@ -51,7 +51,7 @@ $api->version('v1', function ($api) {
            $api_child->post('edit-bookings','BookingsController@editbookings');
            $api_child->post('update-bookings','BookingsController@updatebookings');
            $api_child->post('delete-bookings','BookingsController@deletebookings');
-
+           $api_child->post('address','BookingsController@address');
 
            $api_child->get('get-home', 'HomeController@index');
            $api_child->post('update-profile-detail', 'AuthController@updateProfileDetail');
