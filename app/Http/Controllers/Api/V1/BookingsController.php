@@ -44,6 +44,7 @@ class BookingsController extends Controller
 
         $address->user_id = $request->user_id;
         $address->latitude = $request->latitude;
+        $address->longititude = $request->longititude;
         $address->address1 = $request->address1;
         $address->address2 = $request->address2;
         $address->save();
@@ -85,6 +86,19 @@ class BookingsController extends Controller
         }
 
         return response()->json(['success' => 1, 'booking'=>$bookings1]);
+    }
+
+    public function bookingstatus(Request $request)
+   {
+
+       $param = $request->all();
+       $param['status_id'] = $request->status_id;
+       $data = Bookings::where('id', $request->id);
+    
+       $data->update($param);
+       // dd($data);
+       return response()->json(['success' => 1, 'message' => 'Status Updated successfully'],200);
+
     }
 
     public function editbookings(Request $request)
