@@ -44,8 +44,8 @@ class BookingsController extends Controller
 
         $address->user_id = $request->user_id;
         $address->latitude = $request->latitude;
-        $address->longitude = $request->longitude;
-        $address->address = $request->address;
+        $address->address1 = $request->address1;
+        $address->address2 = $request->address2;
         $address->save();
 
         $address= Address::where('user_id',$request->user_id)->get();
@@ -61,7 +61,7 @@ class BookingsController extends Controller
         $bookings1 = [];
 
         // $bookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
-        $bookings = Bookings::get();
+        $bookings = Bookings::orderBy('id','Desc')->get();
 
         foreach($bookings as $booking)
         {
