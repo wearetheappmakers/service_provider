@@ -27,6 +27,8 @@ class Category extends Model
     //         $model->save();
     //     });
     // }
+    
+    
 
     public function getBackendImageAttribute()
     {

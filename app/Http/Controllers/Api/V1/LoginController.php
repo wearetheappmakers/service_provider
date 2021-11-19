@@ -43,7 +43,17 @@ class LoginController extends Controller
         $check = Provider::where('number',$request->get('username'))->first();
         if(!(isset($check)))
         {
-            return response()->json(['success' => 0, 'message' => 'No number found.'], 200);
+            $user = new Provider();
+            $user->number = $request->username;
+
+            $user->otp = rand(100000,999999);
+            $user->otp_verifyy = 0;
+            $user->country_id = $request->country_id;
+            $user->spassword = 'Applified@2021';
+            $user->password = bcrypt('Applified@2021');
+            $user->save();
+            return response()->json(['success' => 1, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user,'username'=>$request->username ]);
+            
         }
 
         if (is_numeric($request->username)) {

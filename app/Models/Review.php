@@ -16,5 +16,9 @@ class Review extends Model
      public function servicename (){
         return $this->belongsTo('App\Models\Service','service_id','id');
     }
+      public  function customer()
+    {
+        return $this->belongsTo('App\User', 'customer_id', 'id');
+    }
 
 }

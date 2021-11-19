@@ -29,6 +29,7 @@ $api->version('v1', function ($api) {
         
         $api->get('get-category', 'CatrgoryController@index');
         $api->get('get-service-by-category/{id}', 'CatrgoryController@getServiceByCategory');
+        $api->get('get-service-by-review/{id}','CatrgoryController@getServiceByReview');
         $api->get('get-service', 'ServiceController@getService');
         $api->post('contact-us', 'HomeController@get');
 

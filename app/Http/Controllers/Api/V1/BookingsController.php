@@ -55,14 +55,13 @@ class BookingsController extends Controller
 
      public function viewbookings(Request $request)
     {
-//          $viewbookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
+     //          $viewbookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
 
 
         $bookings1 = [];
 
         // $bookings = Bookings::where('customer_id',JWTAuth::user()->id)->orderBy('id','Desc')->get();
-$bookings = Bookings::get();
-// dd($bookings);
+        $bookings = Bookings::get();
 
         foreach($bookings as $booking)
         {
@@ -112,6 +111,7 @@ $bookings = Bookings::get();
         $updatebookings = Bookings::where('id', $request->id)->first();
 
         $updatebookings->update($param);
+
         $updatebookings->save();
 
         return response()->json(['success' => 1, 'message' => 'Updated successfully','data'=>$updatebookings],200);
