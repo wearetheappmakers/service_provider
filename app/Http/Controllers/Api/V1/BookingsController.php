@@ -67,6 +67,7 @@ class BookingsController extends Controller
         foreach($bookings as $booking)
         {
             $bookings1[] =[
+            'id'=>$booking->id,
             'customer_id'=>$booking->customer_id,
             'provider_id' => $booking->provider_id,
             'provider' => $booking->providerename,
