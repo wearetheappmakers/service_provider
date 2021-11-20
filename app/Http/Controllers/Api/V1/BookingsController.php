@@ -70,6 +70,7 @@ class BookingsController extends Controller
             $bookings1[] =[
                 'id'=>$booking->id,
                 'customer_id'=>$booking->customer_id,
+                'customer' => $booking->customername,
                 'provider_id' => $booking->provider_id,
                 'provider' => $booking->providerename,
                 'service_id' => $booking->service_id,

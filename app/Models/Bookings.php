@@ -13,7 +13,10 @@ class Bookings extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
   
-
+   
+    public function customername (){
+        return $this->belongsTo('App\User','customer_id','id');
+    }
    public function servicename (){
         return $this->belongsTo('App\Models\Service','service_id','id');
     }
