@@ -36,7 +36,8 @@ class BookingsController extends Controller
         $createbookings->save();
 
 
-        return response()->json(['success' => 1, 'data'=> $createbookings],200);
+
+        return response()->json(['success' => 1, 'data'=> $createbookings, 'service' => Service::where('id',$request->service_id)->first() ],200);
 
     }  
     public function address(Request $request)
