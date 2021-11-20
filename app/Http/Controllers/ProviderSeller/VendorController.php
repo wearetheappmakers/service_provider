@@ -4,9 +4,11 @@ namespace App\Http\Controllers\ProviderSeller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Provider;
 use App\Models\Membership;
 use DataTables;
 use DB;
+use Auth;
 use Hash;
 use Carbon\Carbon;
 
@@ -27,11 +29,14 @@ class VendorController extends Controller
     {
     	$data['type'] = $type;
         if ($request->ajax()) {
-            if ($type == 'all') {
-                $query = User::latest()->get();
-            }else{
-			 $query = User::where([['status', $type]])->latest()->get();
-            }
+    //         if ($type == 'all') {
+    //             $query = User::latest()->get();
+    //         }else{
+			 // $query = User::where([['status', $type]])->latest()->get();
+    //         }
+            $query = Provider::where('id',Auth::user()->id)->orderBy('id','desc')->get();
+             
+
 			return Datatables::of($query)
 				->addColumn('action', function ($row) {
 					$btn = view('provider.layout.actionbtnpermission')->with(['id' => $row->id, 'route' => 'provider.'.$this->route,'delete' => route('provider.'.$this->route.'.destroy',$row->id) ])->render();

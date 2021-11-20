@@ -110,6 +110,8 @@ public function login(Request $request)
             $user->otp = rand(100000,999999);
             $user->otp_verify = 0;
             $user->country_id = $request->country_id;
+            $user->device_id = $request->device_id;
+            $user->push_token = $request->push_token;
             $user->spassword = 'Applified@2021';
             $user->password = bcrypt('Applified@2021');
             $user->save();
@@ -123,6 +125,10 @@ public function login(Request $request)
             $user->otp = rand(100000,999999);
             $user->otp_verify = 0;
             $user->country_id = $request->country_id;
+            $user->device_id = $request->device_id;
+            $user->push_token = $request->push_token;
+            $user->spassword = 'Applified@2021';
+            $user->password = bcrypt('Applified@2021');
             $user->save();
             return response()->json(['success' => 1, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user,'username'=>$request->username ]);
 
@@ -135,6 +141,8 @@ public function login(Request $request)
            $user->otp = rand(100000,999999);
            $user->otp_verify = 0;
            $user->country_id = $request->country_id;
+           $user->device_id = $request->device_id;
+           $user->push_token = $request->push_token;
            $user->save();
            return response()->json(['success' => 1, 'id' => $user->id, 'otp' => $user->otp,'user'=>$user,'username'=>$request->username ]);
 

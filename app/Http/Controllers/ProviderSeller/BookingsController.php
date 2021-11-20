@@ -34,7 +34,10 @@ class BookingsController extends Controller
 
         if ($request->ajax()) {
 
-            $query = $this->model->latest();
+            // $query = $this->model->latest();
+
+            $query = Bookings::where('provider_id',Auth::user()->id)->orderBy('id','desc')->get();
+
 
             return Datatables::of($query)
             ->addColumn('action', function ($row) {

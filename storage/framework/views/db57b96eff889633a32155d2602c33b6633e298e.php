@@ -35,16 +35,6 @@
 					<div class="kt-portlet__head-wrapper">
 
 						<div class="kt-portlet__head-actions">
-
-						
-							<a href="<?php echo e(route('admin.'.$resourcePath.'.create')); ?>" class="btn btn-brand btn-elevate btn-icon-sm">
-
-								<i class="la la-plus"></i>
-
-								Add <?php echo e($module); ?>
-
-
-							</a>
 						
 						</div>
 
@@ -68,13 +58,18 @@
 
 								<th><input type="checkbox" id="selectall" /></th>
 
-								<th>Name</th>
+								<th>Service</th>
 
-								<!-- <th>Seller ID</th> -->
+								<th>Customer</th>
+
+								<th>Content</th>
+
+								<th>Rating</th>
 
 								<th>Status</th>
 
 								<th>Action</th>
+
 
 							</tr>
 
@@ -97,13 +92,13 @@
 
 </div>
 
-<?php echo $__env->make('admin.layout.multiple_action', array(
+<?php echo $__env->make('provider.layout.multiple_action', array(
 
-					'table_name' => 'permissions',
+					'table_name' => 'review',
 
 					'is_orderby'=>'yes',
 
-					'folder_name'=>'permissions',
+					'folder_name'=>'review',
 
 					'action' => array('change-status-1' => __('Active'), 'change-status-0' => __('Inactive'), 'delete' => __('Delete'))
 
@@ -139,7 +134,7 @@
 
 			}],
 
-			ajax: "<?php echo e(route('admin.'.$resourcePath.'.index')); ?>",
+			ajax: "<?php echo e(route('provider.'.$resourcePath.'.index')); ?>",
 
 			columns: [{
 
@@ -153,15 +148,25 @@
 
 				{
 
-					"data": "title"
+					"data": "service"
 
 				},
 
-				// {
+				{
 
-				// 	"data": "seller_id"
+					"data": "customer"
 
-				// },
+				},
+				{
+
+					"data": "content"
+
+				},
+				{
+
+					"data": "rating"
+
+				},
 				{
 
 					orderable: false,
@@ -181,6 +186,7 @@
 					data: 'action',
 
 				},
+				
 
 
 
@@ -199,4 +205,4 @@
 
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('admin.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/adminseller/permissions/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('provider.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\service_provider\resources\views/provider/providerseller/review/index.blade.php ENDPATH**/ ?>

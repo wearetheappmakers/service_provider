@@ -162,6 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -180,6 +181,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Ladumor\OneSignal\OneSignalServiceProvider::class,
         // SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
     ],
 
@@ -236,6 +238,7 @@ return [
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'OneSignal' => \Ladumor\OneSignal\OneSignal::class,
         // 'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 
